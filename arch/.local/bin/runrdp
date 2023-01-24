@@ -1,0 +1,288 @@
+#!/bin/bash
+
+# Colors
+readonly cyan='\033[0;36m'        # Title;
+readonly red='\033[0;31m'         # Error;
+readonly yellow='\033[1;33m'      # Warning;
+readonly purple='\033[0;35m'      # Alert;
+readonly blue='\033[0;34m'        # Attention;
+readonly light_gray='\033[0;37m'  # Option;
+readonly green='\033[0;32m'       # Done;
+readonly reset='\033[0m'          # No color, end of sentence;
+
+# %b - Print the argument while expanding backslash escape sequences.
+# %q - Print the argument shell-quoted, reusable as input.
+# %d, %i - Print the argument as a signed decimal integer.
+# %s - Print the argument as a string.
+
+#Syntax:
+#    printf "'%b' 'TEXT' '%s' '%b'\n" "${color}" "${var}" "${reset}"
+
+function mkfile() {
+    if [ "${#}" -ne "1" ]; then
+        printf "%bIncorrect use of 'mkfile' Function !%b\nSyntax:\vmkfile [PATH]... ;%b" "${red}" "${light_gray}" "${reset}" 1>&2 ;
+        exit 2 ;
+    fi
+
+    # Create File and Folder if needed
+    mkdir --parents --verbose "$(dirname "${1}")" && touch "${1}" || exit 2 ;
+}
+
+#todo; Parameters && Config File
+#param=$1
+
+#done
+#! The informations will be stored in this file if allowed, but will not be encrypted !
+if [ ! -f "${HOME}"/.config/freerdp/runrdp-known_hosts ] ; then
+    mkfile "${HOME}"/.config/freerdp/runrdp-known_hosts ;
+    file="${HOME}"/.config/freerdp/runrdp-known_hosts ;
+else
+    file="${HOME}"/.config/freerdp/runrdp-known_hosts ;
+fi
+
+#done
+function read_input () {
+    clear ;
+    read -r -p "$(printf "\n%bRemote User: %b" "${cyan}" "${yellow}")" REMOTEUSER ; printf "%b" "${reset}"
+    read -r -p "$(printf "%bRemote User's Password: %b" "${cyan}" "${yellow}")" REMOTEPASS ; printf "%b" "${reset}"
+    read -r -p "$(printf "%bRemote Server/Desktop IP: %b" "${cyan}" "${yellow}")" REMOTESERV ; printf "%b" "${reset}"
+    INPUT=("\"${REMOTEUSER}@${REMOTESERV}\"" "\"${REMOTEUSER}\"" "\"${REMOTEPASS}\"" "\"${REMOTESERV}\"") ;
+}
+
+#done
+function save_to_file () {
+    argb="${1}" # Use 'yes' when calling this function to save without confirmation;
+    if [ "${argb}" == "yes" ]; then
+        clear ;
+        read_file;
+        if [ "${COUNT}" -lt 10 ] ; then
+            clear ;
+            printf "%s\n" "${INPUT[*]}" >> "${file}" ;
+            printf "\n%bSaved !%b\n\n" "${green}" "${reset}" ; sleep 2
+        else
+            remove_saved_connection save ;
+        fi
+    elif [ "${argb}" == "" ]; then
+        while true; do
+            clear ;
+            read -r -p "$(printf "\n%bThe 'User', 'Password' and 'IP' will be stored in: '%s'\n%bWarning: The informations saved in the file are not encrypted !\n\n%bSave this connection's information for ease of use ? [%bY%b/%bn%b]%b " "${light_gray}" "${file}" "${red}" "${cyan}" "${yellow}" "${cyan}" "${yellow}" "${cyan}" "${yellow}")" yn ; printf "%b" "${reset}"
+            case "${yn}" in
+                [Yy]* )
+                    clear ;
+                    read_file;
+                    if [ "${COUNT}" -lt 10 ] ; then
+                        clear ;
+                        printf "%s\n" "${INPUT[*]}" >> "${file}" ;
+                        printf "\n%bSaved !%b\n\n" "${green}" "${reset}" ; sleep 2
+                    else
+                        while true; do
+                            printf "\n%bMaximum saved connections reached, cannot save another !%b\n" "${red}" "${reset}"
+                            read -r -p "$(printf "\n%bWould you like to delete one of the saved connections ? [%bY%b/%bn%b]%b " "${cyan}" "${yellow}" "${cyan}" "${yellow}" "${cyan}" "${yellow}")" yn ; printf "%b" "${reset}"
+                            case "${yn}" in
+                                [Yy]* )
+                                remove_saved_connection save;
+                                connect_to_server; break;;
+                                [Nn]* )
+                                    clear ;
+                                    printf "\n%bNot Saved !%b\n\n" "${yellow}" "${reset}" ; sleep 2 ; break;;
+                                * ) ;;
+                            esac
+                        done
+                    fi; break;;
+                [Nn]* )
+                    clear ;
+                    printf "\n%bNot Saved !%b\n\n" "${yellow}" "${reset}" ; sleep 2 ; break;;
+                * ) save_to_file ; break ;;
+            esac
+        done
+    else
+    printf "%bArgument of Function 'save_to_file' must be Blank or 'yes'%b\n" "${red}" "${reset}"
+    fi
+}
+
+#todo; Parameters && Config File
+function connect_to_server () {
+    #1910x1037+5-5
+    clear ;
+    xfreerdp /u:"${REMOTEUSER}" /p:"${REMOTEPASS}" /v:"${REMOTESERV}" /dynamic-resolution /size:1910x1037 /dynamic-resolution /sound:sys:pulse /microphone:sys:pulse +clipboard ;
+}
+
+#done
+function connect_to_saved () {
+    clear ;
+    printf "\n%bSaved Connections (Max = '10'): %b\n\n" "${yellow}" "${reset}"
+    read_file print ;
+    printf "\n%b[B]: Back%b\n\n" "${red}" "${reset}"
+    if [ ! "${COUNT}" -eq 0 ]; then
+        # Options from 1 to 10. Tricky way to use range in "CASE";
+        if [ "${COUNT}" -ge 1 ]; then o1=1; else o1=0; fi
+        if [ "${COUNT}" -ge 2 ]; then o2=2; else o2=0; fi
+        if [ "${COUNT}" -ge 3 ]; then o3=3; else o3=0; fi
+        if [ "${COUNT}" -ge 4 ]; then o4=4; else o4=0; fi
+        if [ "${COUNT}" -ge 5 ]; then o5=5; else o5=0; fi
+        if [ "${COUNT}" -ge 6 ]; then o6=6; else o6=0; fi
+        if [ "${COUNT}" -ge 7 ]; then o7=7; else o7=0; fi
+        if [ "${COUNT}" -ge 8 ]; then o8=8; else o8=0; fi
+        if [ "${COUNT}" -ge 9 ]; then o9=9; else o9=0; fi
+        if [ "${COUNT}" -ge 10 ]; then o10=10; else o10=0; fi
+
+        if [ "${COUNT}" -eq 1 ]; then
+            saved_connections=$(sed "1q;d" "${file}" | tr -d '"')
+            read -ra CHOSEN <<< "${saved_connections}"
+            #DESCRIPTION="${CHOSEN[0]}"
+            REMOTEUSER="${CHOSEN[1]}"
+            REMOTEPASS="${CHOSEN[2]}"
+            REMOTESERV="${CHOSEN[3]}"
+            connect_to_server ;
+        else
+            while true; do
+                read -r -p "$(printf "\n%bRemotely Connect To: %b" "${cyan}" "${yellow}")" ANS ; printf "%b" "${reset}"
+                case "${ANS}" in
+                    ["${o1}","${o2}","${o3}","${o4}","${o5}","${o6}","${o7}","${o8}","${o9}","${o10}"]* )
+                        if [ ! "${ANS}" -eq 0 ]; then
+                            saved_connections=$(sed "${ANS}q;d" "${file}" | tr -d '"')
+                            read -ra CHOSEN <<< "${saved_connections}"
+                            #DESCRIPTION="${CHOSEN[0]}"
+                            REMOTEUSER="${CHOSEN[1]}"
+                            REMOTEPASS="${CHOSEN[2]}"
+                            REMOTESERV="${CHOSEN[3]}"
+                            connect_to_server ;
+                        else
+                            connect_to_saved ;
+                        fi ; break ;;
+                    [Bb] )
+                        menu_ ; break;;
+                    * ) connect_to_saved ; break;;
+                esac
+            done
+        fi
+    else
+        clear ;
+        printf "%bThere are no saved connections...%b\n" "${red}" "${reset}" ; sleep 3 ; menu_ ;
+    fi
+}
+
+#done
+function remove_saved_connection () {
+    arga="${1}" # Must be blank or "save", the latter is used when trying to save but the maximum of saves has been reached, which will promt the user to delete one of them;
+    if [ "${arga}" == "save" ]; then
+        clear ;
+        printf "\n%bSaved Connections (Max = '10'):%b\n" "${yellow}" "${reset}"
+        printf "%bDelete at least one of them to be able to save the new connection.\nNot saved: %s.%b\n\n" "${purple}" "${INPUT[*]}" "${reset}"
+        read_file print ;
+        printf "\n%b[B]: Back%b\n\n" "${red}" "${reset}"
+        if [ ! "${COUNT}" -eq 0 ]; then
+            # Options from 1 to 10. Tricky way to use range in "CASE";
+            if [ "${COUNT}" -ge 1 ]; then o1=1; else o1=0; fi
+            if [ "${COUNT}" -ge 2 ]; then o2=2; else o2=0; fi
+            if [ "${COUNT}" -ge 3 ]; then o3=3; else o3=0; fi
+            if [ "${COUNT}" -ge 4 ]; then o4=4; else o4=0; fi
+            if [ "${COUNT}" -ge 5 ]; then o5=5; else o5=0; fi
+            if [ "${COUNT}" -ge 6 ]; then o6=6; else o6=0; fi
+            if [ "${COUNT}" -ge 7 ]; then o7=7; else o7=0; fi
+            if [ "${COUNT}" -ge 8 ]; then o8=8; else o8=0; fi
+            if [ "${COUNT}" -ge 9 ]; then o9=9; else o9=0; fi
+            if [ "${COUNT}" -ge 10 ]; then o10=10; else o10=0; fi
+            while true; do
+                read -r -p "$(printf "\n%bRDP - Choose an option to delete: %b" "${cyan}" "${yellow}")" NUM ; printf "%b" "${reset}"
+                case "${NUM}" in
+                    ["${o1}","${o2}","${o3}","${o4}","${o5}","${o6}","${o7}","${o8}","${o9}","${o10}"]* )
+                        if [ ! "${NUM}" -eq 0 ]; then
+                            sed "${NUM}d" "${file}" > file.tmp && mv file.tmp "${file}" ; remove_saved_connection save;
+                        else
+                            remove_saved_connection save;
+                        fi ; break ;;
+                    [Bb] )
+                       save_to_file yes ; break;;
+                    * ) remove_saved_connection save ; break;;
+                esac
+            done
+        fi
+    elif [ "${arga}" == "" ]; then
+        clear ;
+        printf "\n%bSaved Connections (Max = '10'):%b\n\n" "${yellow}" "${reset}"
+        read_file print ;
+        printf "\n%b[B]: Back%b\n\n" "${red}" "${reset}"
+        if [ ! "${COUNT}" -eq 0 ]; then
+            # Options from 1 to 10. Tricky way to use range in "CASE";
+            if [ "${COUNT}" -ge 1 ]; then o1=1; else o1=0; fi
+            if [ "${COUNT}" -ge 2 ]; then o2=2; else o2=0; fi
+            if [ "${COUNT}" -ge 3 ]; then o3=3; else o3=0; fi
+            if [ "${COUNT}" -ge 4 ]; then o4=4; else o4=0; fi
+            if [ "${COUNT}" -ge 5 ]; then o5=5; else o5=0; fi
+            if [ "${COUNT}" -ge 6 ]; then o6=6; else o6=0; fi
+            if [ "${COUNT}" -ge 7 ]; then o7=7; else o7=0; fi
+            if [ "${COUNT}" -ge 8 ]; then o8=8; else o8=0; fi
+            if [ "${COUNT}" -ge 9 ]; then o9=9; else o9=0; fi
+            if [ "${COUNT}" -ge 10 ]; then o10=10; else o10=0; fi
+            while true; do
+                read -r -p "$(printf "\n%bRDP - Choose an option to delete: %b" "${cyan}" "${yellow}")" NUM ; printf "%b" "${reset}"
+                case "${NUM}" in
+                    ["${o1}","${o2}","${o3}","${o4}","${o5}","${o6}","${o7}","${o8}","${o9}","${o10}"]* )
+                        if [ ! "${NUM}" -eq 0 ]; then
+                            sed "${NUM}d" "${file}" > file.tmp && mv file.tmp "${file}" ; remove_saved_connection ;
+                        else
+                            remove_saved_connection ;
+                        fi ; break ;;
+                    [Bb] )
+                        menu_ ; break;;
+                    * ) remove_saved_connection ; break;;
+                esac
+            done
+        else
+            clear ;
+            printf "%bThere are no saved connections...%b\n" "${red}" "${reset}" ; sleep 3 ; menu_ ;
+        fi
+    else
+        printf "\n%bArgument of Function 'remove_saved_connections' must be Blank or 'save'.%b\n" "${red}" "${reset}"
+    fi
+}
+
+#done
+function read_file () {
+    arg="${1}" # Must be blank or "print", the latter prints the output to console;
+    if [ "${arg}" == "print" ]; then
+        COUNT=0
+        while read -r line; do
+            COUNT=$(( COUNT + 1 ))
+            printf "%b[%s]%b: %s\n" "${yellow}" "${COUNT}" "${reset}" "${line}"
+        done < "${file}"
+    elif [ "${arg}" = "" ]; then
+        COUNT=0
+        while read -r line; do
+            COUNT=$(( COUNT + 1 ))
+        done < "${file}"
+    else
+        printf "\n%bArgument of Function 'read_file' must be Blank or 'print'.%b\n" "${blue}" "${reset}"
+    fi
+}
+
+#done
+function menu_ () {
+    clear ;
+    printf "\n%b[1]%b: Initiate a new connection..\n" "${yellow}" "${reset}"
+    printf "%b[2]%b: Initiate from a saved connection..\n" "${yellow}" "${reset}"
+    printf "%b[3]%b: Manage saved connections..\n" "${yellow}" "${reset}"
+    printf "%b[4]%b: Quit\n" "${yellow}" "${reset}"
+    while true; do
+        read -r -p "$(printf "\n%bRDP - Menu:%b " "${cyan}" "${yellow}")" option ; printf "%b" "${reset}"
+        case "${option}" in
+            [1]* )
+                # Initiate a new connection..
+                read_input ;
+                save_to_file ;
+                connect_to_server; break;;
+            [2]* )
+                # Initiate from a saved connection..
+                connect_to_saved ; break;;
+            [3]* )
+                # Delete saved connection..
+                remove_saved_connection ; break;;
+            [4Qq]* )
+                clear ; printf "%bQuit%b\n" "${green}" "${reset}" ; sleep 1 ; break ;;
+            * ) menu_ ; break;;
+        esac
+    done
+}
+
+menu_ ;
