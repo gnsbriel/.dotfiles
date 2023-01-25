@@ -4,7 +4,7 @@
 source "${HOME}"/.config/bash/.bashrc
 
 # Path
-export PATH="${PATH}":~/.local/bin/
+export PATH="${PATH}":"${HOME}"/.local/bin
 
 # Kvantum
 export QT_STYLE_OVERRIDE=kvantum
