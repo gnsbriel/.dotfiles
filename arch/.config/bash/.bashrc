@@ -77,7 +77,6 @@ export NVM_DIR="${HOME}/.nvm"
 # Run pfetch on every instance
 pfetch
 
-
 if ! groups "${USER}" | grep -q i2c; then
     printf "\n Consider adding \"%s\" to \"i2c\" group.\n     $ sudo usermod --append --groups i2c %s \n" "${USER}" "${USER}"
 fi
