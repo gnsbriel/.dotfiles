@@ -569,7 +569,7 @@ screens = [
 @hook.subscribe.startup_once
 def autostart():
     startup_apps = os.path.expanduser(
-        '~/.dotfiles/.linux/.config/qtile/autostart.sh'
+        '~/.config/qtile/autostart.sh'
     )
     subprocess.Popen([startup_apps])
 

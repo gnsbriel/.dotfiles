@@ -10,7 +10,7 @@
 HISTCONTROL=ignoredups # Ignore duplicates for ".bash_history";
 HISTSIZE=10000 # Maximum line size for ".bash_history";
 HISTFILESIZE=10000 # Maximum line size for ".bash_history";
-HISTFILE="${HOME}"/.dotfiles/.config/bash/.bash_history # ".bash_history" file location;
+HISTFILE="${HOME}"/.dotfiles/windows/.config/bash/.bash_history # ".bash_history" file location;
 shopt -s histappend # Append commands to ".bash_history";
 shopt -s checkwinsize # Line wrap on window resize;
 
@@ -38,13 +38,13 @@ fi
 
 # Aliases
 if [ ! "${EUID:-$(id -u)}" -eq 0 ]; then
-    source "${HOME}"/.dotfiles/.config/bash/.bash_aliases
+    source "${HOME}"/.dotfiles/windows/.config/bash/.bash_aliases
 fi
 
 # Git
 if [ ! "${EUID:-$(id -u)}" -eq 0 ]; then
-    source "${HOME}"/.dotfiles/.config/git/git-prompt.sh
-    source "${HOME}"/.dotfiles/.config/git/git-completion.bash
+    source "${HOME}"/.dotfiles/windows/.config/git/git-prompt.sh
+    source "${HOME}"/.dotfiles/windows/.config/git/git-completion.bash
 fi
 
 # set variable identifying the chroot you work in (used in the prompt below)

@@ -8,7 +8,7 @@ alias p='pfetch'             # Run pfetch;
 alias c='clear'              # Clear terminal;
 alias h='history'            # View commands history;
 alias ..='cd ..'             # Go back one folder;
-alias wget='wget --hsts-file=$HOME/.dotfiles/.linux/.config/wget/.wget-hsts'
+alias wget='wget --hsts-file=${HOME}/.config/wget/.wget-hsts'
 alias sc='shellcheck -x -o require-variable-braces'
 alias ft='xdg-mime query filetype'
 

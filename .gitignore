@@ -1,8 +1,8 @@
 !.gitignore
 .Backup/
-arch/.config/less/.lesshst
-arch/.config/wget/.wgetrc
-arch/.config/wget/.wget-hsts
-arch/.config/bash/.bash_history
+*/.config/less/.lesshst
+*/.config/wget/.wgetrc
+*/.config/wget/.wget-hsts
+*/.config/bash/.bash_history
 arch/.config/qtile/__pycache__
 arch/.config/qtile/settings/__pycache__

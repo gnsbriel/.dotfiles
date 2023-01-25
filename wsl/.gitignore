@@ -1,5 +1,0 @@
-!.gitignore
-.config/bash/.bash_history
-.config/less/.lesshst
-.config/wget/.wgetrc
-.config/wget/.wget-hsts

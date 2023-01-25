@@ -6,7 +6,7 @@ alias p='pfetch'    # Exit Terminal;
 alias c='clear'     # Clear Terminal;
 alias h='history'   # View Commands History;
 alias ..='cd ..'    # Go back One Folder;
-alias wget='wget --hsts-file=$HOME/.dotfiles/.windows/wget/.wget-hsts'
+alias wget='wget --hsts-file=${HOME}/.dotfiles/windows/.config/wget/.wget-hsts'
 alias sc='shellcheck -x'
 
 # enable color support and shorten some commands of ls;

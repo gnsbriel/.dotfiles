@@ -72,14 +72,5 @@ export NVM_DIR="${HOME}/.nvm"
 [ -s "${NVM_DIR}/nvm.sh" ] && \. "${NVM_DIR}/nvm.sh"                    # This loads nvm;
 [ -s "${NVM_DIR}/bash_completion" ] && \. "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion;
 
-# If running on WSL or Windows don't open pfetch
-if grep -q MINGW64 /proc/version; then
-    :
-elif grep -q microsoft /proc/version; then
-    :
-elif grep -q WSL /proc/version; then
-    :
-else
-    printf "\n"
-    pfetch ;
-fi
+# Run pfetch on every instance
+pfetch
