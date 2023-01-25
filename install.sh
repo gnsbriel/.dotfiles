@@ -386,7 +386,7 @@ function install-dotfiles-wsl() {
     # Wget
     printf "%bSetting up \"Wget\"...%b\n" "${yellow}" "${reset}"
     rm --force --recursive --verbose "${HOME}"/wgetrc
-    rm --force --recursive --verbose "${HOME}"/.wget-hst
+    rm --force --recursive --verbose "${HOME}"/.wget-hsts
     mkfile "${PWD}"/wsl/.config/wget/.wget-hsts
     mkfile "${PWD}"/wsl/.config/wget/.wgetrc
     ln --force --no-dereference --symbolic --verbose "${PWD}"/wsl/.config/wget "${HOME}"/.config
