@@ -28,16 +28,16 @@ readonly reset='\033[0m'          # No color, end of sentence
 function Help() {
 
    # Display Help
-   #echo ""
-   #echo "Syntax: ./install.sh [OPTION..]"
-   #echo ""
-   #echo "Options:"
-   #echo "-h, --help       Print this help message."
-   #echo ""
-   #echo "-a, --arch       Current operational system (Arch Linux)."
-   #echo "-u, --ubuntu     Current operational system (Ubuntu-based Distro)."
-   #echo "-wsl, --wsl      Current operational system (Windows Subsystem for Linux)."
-   #echo "-w, --windows    Current operational system (Windows)."
+   echo ""
+   echo "Syntax: ./install.sh [OPTION..]"
+   echo ""
+   echo "Options:"
+   echo "-h, --help       Print this help message."
+   echo ""
+   echo "-a, --arch       Current operational system (Arch Linux)."
+   echo "-u, --ubuntu     Current operational system (Ubuntu-based Distro)."
+   echo "-wsl, --wsl      Current operational system (Windows Subsystem for Linux)."
+   echo "-w, --windows    Current operational system (Windows)."
    echo ""
 
 }
@@ -51,7 +51,7 @@ function Help() {
 function timer() {
 
     if [ "${#}" == "" ]; then
-        printf "%bIncorrect use of 'timer' Function !%b\nSyntax:\vtimer_ 'PHRASE';%b\n" "${purple}" "${light_gray}" "${reset}" 1>&2
+        printf "%bIncorrect use of 'timer' Function !%b\nSyntax:\vtimer 'PHRASE';%b\n" "${purple}" "${light_gray}" "${reset}" 1>&2
         exit 2
     fi
 
@@ -69,14 +69,15 @@ function timer() {
 function mkfile() {
 
     if [ "${#}" -ne "1" ]; then
-        printf "%bIncorrect use of 'mkfile' Function !%b\nSyntax:\vmkfile [PATH]... ;%b" "${red}" "${light_gray}" "${reset}" 1>&2 ;
-        exit 2 ;
+        printf "%bIncorrect use of 'mkfile' Function !%b\nSyntax:\vmkfile [PATH]... ;%b" "${red}" "${light_gray}" "${reset}" 1>&2
+        exit 2
     fi
 
     # Create File and Folder if needed
-    mkdir --parents --verbose "$(dirname "${1}")" && touch "${1}" || exit 2 ;
+    mkdir --parents --verbose "$(dirname "${1}")" && touch "${1}" || exit 2
 
 }
+
 
 function mkbackup() {
 
@@ -170,7 +171,7 @@ function install-dotfiles-arch() {
     # Setup "Kvantum"
     printf "%bSetting up \"Kvantum\"...%b\n" "${yellow}" "${reset}"
     rm --force --recursive "${HOME}"/.config/Kvantum
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/Kvantum "${HOME}"/.config]
+    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/Kvantum "${HOME}"/.config
 
     # Setup "Lxappearane"
     printf "%bSetting up \"Lxappearane\"...%b\n" "${yellow}" "${reset}"
@@ -449,18 +450,22 @@ while true; do
             exit 0
             ;;
         -a | --arch)
+            timer "$(printf "%bWarning: You chose to Install .dotfiles for arch..%b" "${yellow}" "${reset}")"
             install-dotfiles-arch
             exit 0
             ;;
         -u | --ubuntu)
+            timer "$(printf "%bWarning: You chose to Install .dotfiles for ubuntu..%b" "${yellow}" "${reset}")"
             install-dotfiles-ubuntu
             exit 0
             ;;
         -wsl | --wsl)
+            timer "$(printf "%bWarning: You chose to Install .dotfiles for wsl..%b" "${yellow}" "${reset}")"
             install-dotfiles-wsl
             exit 0
             ;;
         -w | --windows)
+            timer "$(printf "%bWarning: You chose to Install .dotfiles for windows..%b" "${yellow}" "${reset}")"
             install-dotfiles-windows
             exit 0
             ;;
