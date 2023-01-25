@@ -3,7 +3,7 @@
 xrandr --output DisplayPort-2 --mode 1920x1080 --rate 165            &   # Set monitor resolution and refresh rate
 #xrandr --output LVDS-1 --mode 1366x768 --rate 60                     &   # Set monitor resolution and refresh rate
 xset s off -dpms                                                     &   # Disable screen saving
-nitrogen --set-zoom-fill --random ~/Media/Wallpapers/                &   # Set a random background
+nitrogen --set-zoom-fill --random ~/Pictures/Wallpapers/             &   # Set a random background
 picom --experimental-backends --config ~/.config/picom/picom.conf -b &   # Start picom (Compositor)
 dunst -conf/config "$HOME/.config/dunst/dunstrc"                     &   # Start dunst (Notifications)
 flameshot                                                            &   # Start flameshot (Screenshot tool)

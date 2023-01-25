@@ -6,7 +6,7 @@ from libqtile.command import lazy
 
 # ----- API Fuctions (Must be executed) ----- #
 MOVESPECIFICWINDOWTOGROUP = os.path.expanduser(
-    '~/.dotfiles/.linux/.config/qtile/API_COMMANDS/move_x_window_togroup.py'
+    '~/.dotfiles/arch/.config/qtile/API_COMMANDS/move_x_window_togroup.py'
 )
 
 
