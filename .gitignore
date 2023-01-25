@@ -1,5 +1,5 @@
 !.gitignore
-Backup/
+.Backup/
 arch/.config/less/.lesshst
 arch/.config/wget/.wgetrc
 arch/.config/wget/.wget-hsts
