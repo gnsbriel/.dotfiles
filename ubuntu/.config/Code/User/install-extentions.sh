@@ -30,4 +30,4 @@ while IFS="" read -r p || [ -n "${p}" ]; do
           printf "\n%bInstalling Extention '%s' %b\n" "${yellow}" "${p}" "${reset}" ; sleep 1
           code --install-extension "${p}" > /dev/null 2>&1 && printf "%bInstalled !%b\n" "${green}" "${reset}" || printf "%bExtention '%s' didn't get installed%b\n" "${red}" "${p}" "${reset}"
     # fi
-done < "${PWD}"/.linux/.config/Code/User/extentions.txt
+done < "${PWD}"/ubuntu/.config/Code/User/extentions.txt
