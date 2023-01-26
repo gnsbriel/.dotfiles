@@ -75,6 +75,7 @@ export NVM_DIR="${HOME}/.nvm"
 [ -s "${NVM_DIR}/bash_completion" ] && \. "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
 
 # Run pfetch on every instance
+printf "\n"
 pfetch
 
 if ! groups "${USER}" | grep -q i2c; then
