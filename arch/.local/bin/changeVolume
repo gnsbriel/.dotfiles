@@ -20,8 +20,3 @@ else
     dunstify -a "Volume Icon" -u low -i audio-volume-high -h string:x-dunst-stack-tag:"${msgTag}" \
     -h int:value:"${volume}" "Volume: ${volume}%"
 fi
-
-unset -v msgTag
-unset -v volume
-unset -v mute
-exit 0

@@ -11,6 +11,3 @@ case "${chosen}" in
     "󱂬 Restart Window Manager") qtile cmd-obj -o cmd -f restart ;;
     *) exit 1 ;;
 esac
-
-unset -v chosen
-exit 0
