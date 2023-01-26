@@ -322,6 +322,7 @@ screens = [
             mouse_callbacks={"Button1": lazy.spawn(Apps.drun)}
         ),
         widget.TextBox(
+            font="Material Design Icons Desktop",
             foreground=colors["09"],
             fontsize=32,
             text="",
