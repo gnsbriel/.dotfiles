@@ -94,8 +94,6 @@
 
     "window.confirmBeforeClose": "never",
     "window.restoreWindows": "folders",
-    "window.titleBarStyle": "custom",
-    "window.commandCenter": true,
     "window.menuBarVisibility": "visible",
 
     "explorer.incrementalNaming": "smart",
