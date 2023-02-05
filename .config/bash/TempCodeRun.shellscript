@@ -1,2 +1,0 @@
-sys="$(cat $(uname -r))"
-echo $sys

@@ -18,9 +18,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # Options
-set -o errexit   # abort on nonzero exitstatus
-set -o nounset   # abort on unbound variable
-set -o pipefail  # don't hide errors within pipes
+set -o errexit   # Used to exit upon error, avoiding cascading errors
+set +o nounset   # Exposes unset variables
+set -o pipefail  # Unveils hidden failures
 set +o xtrace    # Trace what gets executed (Debug)
 trap ctrl_c INT  # Trap CTRL + C and call ctrl_c
 
@@ -40,11 +40,16 @@ readonly nc='\033[0m'
 # %s - Print the argument as a string.
 # printf "'%b' 'TEXT' '%s' '%b'\n" "${color}" "${var}" "${reset}"
 
+# Variable definitions
+dotfiles="$(dirname "${0}")";    readonly dotfiles
+dotconfig="${dotfiles}"/.config; readonly dotconfig
+dotlocal=/"${dotfiles}"/.local;  readonly dotlocal
+
 # Help Message
 function helpmsg() {
 
    echo ""
-   echo "Usage: ${0##*/} [OPTION]..."
+   echo "Usage: ./${0##*/} [OPTION]..."
    echo ""
    echo "Options:"
    echo "-h, --help     Print this help message."
@@ -57,7 +62,7 @@ function helpmsg() {
 
 # shellcheck disable=SC2317
 function ctrl_c() {
-    echo "** Trapped CTRL-C"
+    # echo "** Trapped CTRL-C"
     exit 0
 }
 
@@ -65,30 +70,27 @@ function ctrl_c() {
 function main() {
 
     while true; do
-        case "${1-}" in
-            -h | --help)
-                helpmsg
-                exit 0
-                ;;
+        case "${1}" in
             -a | --arch)
-                echo "arch" > "${XDG_CONFIG_HOME}"/sys
+                :
                 exit 0
                 ;;
             -wsl | --wsl)
-                echo "wsl" > "${XDG_CONFIG_HOME}"/sys
+                :
                 exit 0
                 ;;
             -w | --windows)
-                echo "windows" > "${XDG_CONFIG_HOME}"/sys
+                :
                 exit 0
                 ;;
-            *)
+            -h | --help | *)
                 helpmsg
                 exit 0
                 ;;
         esac
     done
 }
+[[ "${1}" == "--" ]] && shift
 
-cd "$(dirname "${0}")"
+cd "$(dirname "${0}")"  # cd to executable path
 main "${@}"

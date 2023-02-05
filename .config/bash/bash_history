@@ -1307,3 +1307,143 @@ e
 /bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
 c
 ./practices.sh --arch
+./install.sh 
+./install.sh -a
+c
+e
+./practices.sh --arch -wsl
+./practices.sh --arch --arch
+c
+e
+./practices.sh --arch -f
+./practices.sh --arch -file
+./practices.sh --arch --file
+c
+e
+./practices.sh --arch --file
+./practices.sh --windows --file
+c
+./practices.sh --windows --arch
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+./practices.sh --windows --arch
+./practices.sh --windows
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+cd ..
+'/home/gnascsilva/.dotfiles/practices.sh'
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+e
+./practices.sh -v
+./practices.sh -v -v
+./practices.sh -s a -s a
+./practices.sh -v -s -f
+./practices.sh -v -a
+./practices.sh -s -v
+./practices.sh -s
+./practices.sh -s a
+./practices.sh -s -v
+./practices.sh -s --version
+./practices.sh --version
+./practices.sh --version -f
+./practices.sh -f -v
+c
+./practices.sh -f -- -v
+./practices.sh -f --
+./practices.sh -- v
+./practices.sh -f --
+c
+./practices.sh -f --
+./practices.sh -v --
+./practices.sh -- -v
+c
+./practices.sh -- -v
+./practices.sh --
+./practices.sh --arch --windows
+./practices.sh --arch --windows --wsl
+clear
+c
+./practices.sh --arch --windows --wsl
+./practices.sh --windows --windows --wsl
+./install.sh -h -h
+c
+./install.sh -h -h
+./practices.sh --
+c
+./practices.sh -h -h
+./practices.sh a
+c
+./practices.sh a
+./practices.sh -s a
+c
+./practices.sh -s a
+./practices.sh -s string
+./practices.sh -s stringa
+./practices.sh -s 
+./practices.sh
+c
+./practices.sh 
+c
+./practices.sh 
+c
+./practices.sh 
+./practices.sh --arch --windows --wsl --arch --windows
+touch test
+cp --verbose --verbose test test2
+cp --help
+clear
+nmv -v -v
+nvm -v
+nvm -v -v
+e
+cp --help --verbose 
+cp --help --verbose test2 testb
+cp --help --help
+e
+./practices.sh --
+./practices.sh -- -h
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+./practices.sh --windows
+/dev/null
+c
+e
+c
+e
+./practices.sh -a
+c
+e
+c
+e
+cd .dotfiles/
+clear
+e
+cd .dotfiles/
+clear
+ls
+clear
+e
+/etc/debian_chroot
+e
+./practices.sh 
+./practices.sh -a
+c
+e
+./practices.sh 
+c
+e
+./practices.sh --arch --windows
+c
+./practices.sh --arch --windows
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.sh"
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+e
