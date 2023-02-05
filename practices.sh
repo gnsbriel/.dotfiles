@@ -41,9 +41,9 @@ readonly nc='\033[0m'
 # printf "'%b' 'TEXT' '%s' '%b'\n" "${color}" "${var}" "${reset}"
 
 # Variable definitions
-dotfiles="$(dirname "${0}")";    readonly dotfiles
-dotconfig="${dotfiles}"/.config; readonly dotconfig
-dotlocal=/"${dotfiles}"/.local;  readonly dotlocal
+scriptpath="$(dirname "${0}")";    readonly scriptpath
+dotconfig="${scriptpath}"/.config; readonly dotconfig
+dotlocal=/"${scriptpath}"/.local;  readonly dotlocal
 
 # Help Message
 function helpmsg() {
@@ -66,24 +66,32 @@ function ctrl_c() {
     exit 0
 }
 
+function countdown() {
+
+    if [ "${#}" == "" ]; then
+        echo "Syntax: countdown [PHRASE..]"
+        exit 2
+    fi
+
+    printf "%b%s%b\n" "${blue}" "${*}" "${nc}"
+    for ((i = 5 ; i > 0 ; i--)); do
+        printf "%bContinuing in: %s%b\r" "${light_gray}" "${i}" "${nc}"
+        sleep 1
+    done
+    printf "\n"
+}
+
 # Main Program
 function main() {
 
     while true; do
         case "${1}" in
-            -a | --arch)
-                :
-                exit 0
+            -h | --help)
                 ;;
-            -wsl | --wsl)
+            OPTION )
                 :
-                exit 0
                 ;;
-            -w | --windows)
-                :
-                exit 0
-                ;;
-            -h | --help | *)
+            * )
                 helpmsg
                 exit 0
                 ;;
@@ -92,5 +100,5 @@ function main() {
 }
 [[ "${1}" == "--" ]] && shift
 
-cd "$(dirname "${0}")"  # cd to executable path
+cd "${scriptpath}"  # cd to executable path
 main "${@}"
