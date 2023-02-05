@@ -1,0 +1,30 @@
+# shellcheck shell=bash
+
+# {{{ PATH
+
+    export PATH="${PATH}":"${HOME}"/.local/bin
+# }}}
+
+# {{{ Variable Definitions
+
+    export QT_STYLE_OVERRIDE=kvantum
+    export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
+    export LESSHISTFILE="${XDG_CONFIG_HOME}"/less/lesshst
+    export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
+    export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+# }}}
+
+# {{{ Bash
+
+    source "${XDG_CONFIG_HOME}"/bash/bashrc
+# }}}
+
+# {{{ Xinit
+
+    DE="qtile"  # Desktop Environment
+
+    if [[ "$(tty)" = "/dev/tty1" ]]; then
+        pgrep "${DE}" || startx "${XDG_CONFIG_HOME}"/X11/xinitrc "${DE}"
+    fi
+    unset DE
+# }}}

@@ -1,17 +1,15 @@
 #!/bin/bash
 
-############################################################
-# Colors                                                   #
-############################################################
+# {{{ Colors
 
-readonly cyan='\033[0;36m'        # Title
-readonly red='\033[0;31m'         # Error
-readonly yellow='\033[1;33m'      # Warning
-readonly purple='\033[0;35m'      # Alert
-readonly blue='\033[0;34m'        # Attention
-readonly light_gray='\033[0;37m'  # Option
-readonly green='\033[0;32m'       # Done
-readonly reset='\033[0m'          # No color, end of sentence
+readonly cyan='\033[0;36m'
+readonly red='\033[0;31m'
+readonly yellow='\033[1;33m'
+readonly purple='\033[0;35m'
+readonly blue='\033[0;34m'
+readonly light_gray='\033[0;37m'
+readonly green='\033[0;32m'
+readonly reset='\033[0m'
 
 # %b - Print the argument while expanding backslash escape sequences.
 # %q - Print the argument shell-quoted, reusable as input.
@@ -20,33 +18,27 @@ readonly reset='\033[0m'          # No color, end of sentence
 
 #Syntax:
 #    printf "'%b' 'TEXT' '%s' '%b'\n" "${color}" "${var}" "${reset}"
+# }}}
 
-############################################################
-# Help                                                     #
-############################################################
+# {{{ Help Message
 
-function Help() {
+function msghelp() {
 
-   # Display Help
    echo ""
-   echo "Syntax: ./install.sh [OPTION..]"
+   echo "Usage: ${0} [OPTION]..."
    echo ""
    echo "Options:"
-   echo "-h, --help       Print this help message."
+   echo "-h, --help     Print this help message."
    echo ""
-   echo "-a, --arch       Current operational system (Arch Linux)."
-   echo "-u, --ubuntu     Current operational system (Ubuntu-based Distro)."
-   echo "-wsl, --wsl      Current operational system (Windows Subsystem for Linux)."
-   echo "-w, --windows    Current operational system (Windows)."
+   echo "-a, --arch     Current operational system (Arch Linux)."
+   echo "-wsl, --wsl    Current operational system (WSL)."
+   echo "-w, --windows  Current operational system (Windows)."
    echo ""
-
+   exit 2
 }
+# }}}
 
-############################################################
-# Main program                                             #
-############################################################
-
-#Section: "Functions"
+# {{{ Main Program
 
 function timer() {
 
@@ -63,42 +55,25 @@ function timer() {
         sleep 1
     done
     printf "\n"
-
 }
 
-function mkfile() {
-
-    if [ "${#}" -ne "1" ]; then
-        printf "%bIncorrect use of 'mkfile' Function !%b\nSyntax:\vmkfile [PATH]... ;%b" "${red}" "${light_gray}" "${reset}" 1>&2
-        exit 2
-    fi
-
-    # Create File and Folder if needed
-    mkdir --parents --verbose "$(dirname "${1}")" && touch "${1}" || exit 2
-
-}
-
-
-function mkbackup() {
-
-    if [ ! -d "${PWD}"/.Backup ]; then mkdir "${PWD}"/.Backup; fi
+function create() {
 
     case "${1}" in
         -f | --file )
             shift
-            if [ ! -f "${PWD}"/.Backup/"${1##*/}" ]; then
-                cp --verbose "${1}" "${PWD}"/.Backup/ && printf "%bFile '%s' successfully backed-up !%b\n" "${green}" "${1##*/}" "${reset}" || printf "%bCould not backup '%s' !%b\n" "${red}" "${1##*/}" "${reset}"
-            fi
+            [ -f "${1}" ] && return
+            mkdir --parents --verbose "$(dirname "${1}")" \
+                && touch "${1}" || exit 2
             ;;
         -d | --directory )
             shift
-            if [ ! -d "${PWD}"/.Backup/"${1##*/}" ]; then
-                cp --verbose --recursive "${1}" "${PWD}"/.Backup/ && printf "%bDirectory '%s' successfully backed-up !%b\n" "${green}" "${1##*/}" "${reset}" || printf "%b could not backup '%s' !%b\n" "${red}" "${1##*/}" "${reset}"
-            fi
+            [ -d "${1}" ] && return
+            mkdir --parents --verbose "${1}" || exit 2
             ;;
         * )
             echo ""
-            echo "Syntax: mkbackup [OPTION..] [PATH..]"
+            echo "Syntax: create [OPTION..] [PATH..]"
             echo ""
             echo "Options:"
             echo "-f, --file"
@@ -106,303 +81,223 @@ function mkbackup() {
             exit 0
             ;;
     esac
-
 }
-
-#Section: "--arch"
 
 function install-dotfiles-arch() {
 
-    # Setup ".config"
-    printf "%bSetting up \".config\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.config
+    # {{{ "${HOME}"
 
-    # Setup "bin"
-    printf "%bSetting up \"bin\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.local/bin
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.local/bin/* "${HOME}"/.local/bin
+    printf "%bSetting up HOME..%b\n" "${yellow}" "${reset}"
+    create --directory "${XDG_CONFIG_HOME}"
+    create --directory "${HOME}"/.local/bin
 
-    # Setup "Bash"
-    printf "%bSetting up \"bash\"...%b\n" "${yellow}" "${reset}"
-    mkbackup -f "${HOME}"/.bashrc       && rm --force "${HOME}"/.bashrc
-    mkbackup -f "${HOME}"/.bash_profile && rm --force "${HOME}"/.bash_profile
-    rm --force --verbose "${HOME}"/.bash_history ;
-    mkbackup -f "${HOME}"/.bash_logout  && rm --force "${HOME}"/.bash_logout
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/bash "${HOME}"/.config
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/bash/.bash_profile "${HOME}"
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/bash/.bash_logout "${HOME}"
+    # Binaurial audio with openal
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.alsoftrc "${HOME}"
+    # }}}
 
-    # Setup "Alacritty"
-    printf "%bSetting up \"Alacritty\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/alacritty
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/alacritty "${HOME}"/.config
+    # {{{ "${XDG_CONFIG_HOME}"
 
-    # Setup "Btop"
-    printf "%bSetting up \"Btop\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/btop
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/btop "${HOME}"/.config
+    for folder in "${PWD}"/.config/*; do
 
-    # Setup "Dunst"
-    printf "%bSetting up \"Dunst\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/dunst
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/dunst "${HOME}"/.config
+        [ ! -d "${folder}" ] && continue
+        case "${folder##*/}" in
+            Code | Thunar | xfce4 | pluma| less | wget ) : ;;
+            * )
+                printf "%bSetting up %s..%b\n" \
+                    "${yellow}" "${folder##*/}" "${reset}"
+                rm --force --recursive --verbose \
+                    "${XDG_CONFIG_HOME:?}"/"${folder##*/}"
+                ln --force --no-dereference --symbolic --verbose \
+                    "${folder}" "${XDG_CONFIG_HOME}" || exit 2
 
-    # Setup "Git"
-    printf "%bSetting up \"Git\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.gitconfig
-    rm --force --recursive "${HOME}"/.config/git
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/git "${HOME}"/.config
+                if [ "${folder##*/}" == "qtile" ]; then
+                    rm --force --verbose "${XDG_DATA_HOME}"/qtile/qtile.log
+                    ln --force --no-dereference --symbolic --verbose \
+                        "${XDG_CONFIG_HOME}"/qtile/qtile.log \
+                        "${XDG_DATA_HOME}"/qtile/qtile.log
+                fi
 
-    # Setup "Picom"
-    printf "%bSetting up \"Picom\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/picom
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/picom "${HOME}"/.config
+                if [ "${folder##*/}" == "bash" ]; then
+                    rm --force --verbose        \
+                        "${HOME}"/.profile      \
+                        "${HOME}"/.bashrc       \
+                        "${HOME}"/.bash_profile \
+                        "${HOME}"/.bash_logout  \
+                        "${HOME}"/.bash_history
 
-    # Setup "Qtile"
-    printf "%bSetting up \"Qtile\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/qtile
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/qtile "${HOME}"/.config
+                    ln --force --no-dereference --symbolic --verbose \
+                        "${folder}"/bash_profile "${HOME}"/.bash_profile
+                    ln --force --no-dereference --symbolic --verbose \
+                        "${folder}"/bash_logout "${HOME}"/.bash_logout
+                fi
 
-    # Setup "Rofi"
-    printf "%bSetting up \"Rofi\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/rofi
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/rofi "${HOME}"/.config
+                if [ "${folder##*/}" == "X11" ]; then
+                    ln --force --no-dereference --symbolic --verbose \
+                        "${folder}"/xcompose "${HOME}"/.XCompose
+                fi
 
-    # Setup "Kvantum"
-    printf "%bSetting up \"Kvantum\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/Kvantum
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/Kvantum "${HOME}"/.config
+                if [ "${folder##*/}" == "gtk-3.0" ]; then
+                    git update-index --no-skip-worktree "${folder}"/bookmarks
+                    if git status --porcelain | grep -q bookmarks; then
+                        rm --force --verbose "${folder}"/bookmarks
+                        git restore "${folder}"/bookmarks
+                    fi
+                    git update-index --skip-worktree "${folder}"/bookmarks
+                    sed --expression "s/CURRENTUSERNAME/${USER}/g" \
+                        --in-place "${folder}"/bookmarks
+                fi
 
-    # Setup "Lxappearane"
-    printf "%bSetting up \"Lxappearane\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/gtk-2.0
-    rm --force --recursive "${HOME}"/.config/gtk-3.0
-    rm --force --recursive "${HOME}"/.config/gtk-4.0
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/gtk-2.0 "${HOME}"/.config
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/gtk-3.0 "${HOME}"/.config
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/gtk-4.0 "${HOME}"/.config
-    if git status --porcelain | grep -q bookmarks; then
-        rm --force "${PWD}"/arch/.config/gtk-3.0/bookmarks
-        git restore "${PWD}"/arch/.config/gtk-3.0/bookmarks
-    fi
-    git update-index --skip-worktree "${PWD}"/arch/.config/gtk-3.0/bookmarks
-    sed --expression "s/CURRENTUSERNAME/$USER/g" --in-place "${PWD}"/arch/.config/gtk-3.0/bookmarks
+                if [ "${folder##*/}" == "flameshot" ]; then
+                    git update-index --no-skip-worktree \
+                        "${folder}"/flameshot.ini
+                    if git status --porcelain | grep -q flameshot.ini; then
+                        rm --force --verbose "${folder}"/flameshot.ini
+                        git restore "${folder}"/flameshot.ini
+                    fi
+                    git update-index --skip-worktree "${folder}"/flameshot.ini
+                    sed --expression "s/CURRENTUSERNAME/$USER/g" \
+                        --in-place "${folder}"/flameshot.ini
+                fi
+                ;;
+        esac
+    done
 
-    # Setup "Flameshot"
-    printf "%bSetting up \"Flameshot\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/flameshot
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/flameshot "${HOME}"/.config
-    if git status --porcelain | grep -q flameshot.ini; then
-        rm --force "${PWD}"/arch/.config/flameshot/flameshot.ini
-        git restore "${PWD}"/arch/.config/flameshot/flameshot.ini
-    fi
-    git update-index --skip-worktree "${PWD}"/arch/.config/flameshot/flameshot.ini
-    sed --expression "s/CURRENTUSERNAME/$USER/g" --in-place "${PWD}"/arch/.config/flameshot/flameshot.ini
+    # code
+    printf "%bSetting up code..%b\n" "${yellow}" "${reset}"
+    create --directory "${XDG_CONFIG_HOME}"/Code/User
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/Code/User/snippets \
+        "${XDG_CONFIG_HOME}"/Code/User
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/Code/User/settings.json \
+        "${XDG_CONFIG_HOME}"/Code/User
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/Code/User/keybindings.json \
+        "${XDG_CONFIG_HOME}"/Code/User
 
-    # Setup "Volumeicon"
-    printf "%bSetting up \"Volumeicon\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/volumeicon
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/volumeicon "${HOME}"/.config
+    # thunar
+    printf "%bSetting up thunar..%b\n" "${yellow}" "${reset}"
+    create --directory "${XDG_CONFIG_HOME}"/Thunar
+    create --directory \
+            "${XDG_CONFIG_HOME}"/xfce4/xfconf/xfce-perchannel-xml
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/Thunar/uca.xml "${XDG_CONFIG_HOME}"/Thunar
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml \
+        "${XDG_CONFIG_HOME}"/xfce4/xfconf/xfce-perchannel-xml
 
-    # Setup "VSCode"
-    printf "%bSetting up \"VSCode\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.config/Code/User
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/Code/User/snippets "${HOME}"/.config/Code/User
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/Code/User/settings.json "${HOME}"/.config/Code/User
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/Code/User/keybindings.json "${HOME}"/.config/Code/User
+    # pluma
+    printf "%bSetting up pluma..%b\n" "${yellow}" "${reset}"
+    create --directory "${XDG_CONFIG_HOME}"/pluma/styles
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/pluma/styles/arc-dark.xml \
+        "${XDG_CONFIG_HOME}"/pluma/styles
 
-    # Setup "Thunar"
-    printf "%bSetting up \"Thunar\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.config/xfce4/xfconf/xfce-perchannel-xml
-    mkdir --parents --verbose "${HOME}"/.config/Thunar
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/Thunar/uca.xml "${HOME}"/.config/Thunar
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml "${HOME}"/.config/xfce4/xfconf/xfce-perchannel-xml
+    # wget
+    printf "%bSetting up wget..%b\n" "${yellow}" "${reset}"
+    rm --force --verbose        \
+        "${HOME}"/wgetrc        \
+        "${HOME}"/.wget-hsts
+    create --file "${PWD}"/.config/wget/wget-hsts
+    create --file "${PWD}"/.config/wget/wget/wgetrc
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/wget "${XDG_CONFIG_HOME}"
 
-    # Setup "Pluma"
-    printf "%bSetting up \"Pluma\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.config/pluma/styles
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/pluma/styles/arc-dark.xml "${HOME}"/.config/pluma/styles
+    # less
+    printf "%bSetting up less..%b\n" "${yellow}" "${reset}"
+    create --file "${PWD}"/.config/less/lesshst
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/less "${XDG_CONFIG_HOME}"
 
-    # Wget
-    printf "%bSetting up \"Wget\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.wgetrc
-    rm --force "${HOME}"/.wget-hsts
-    mkfile "${PWD}"/arch/.config/wget/.wget-hsts
-    mkfile "${PWD}"/arch/.config/wget/.wgetrc
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/wget "${HOME}"/.config
+    # MIME types
+    printf "%bSetting up MIME types..%b\n" "${yellow}" "${reset}"
+    create --directory "${XDG_DATA_HOME}"/applications
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/mimeapps.list "${XDG_DATA_HOME}"/applications
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.config/mimeapps.list "${XDG_CONFIG_HOME}"
+    # }}}
 
-    # Less
-    printf "%bSetting up \"Less\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.lesshst
-    mkfile "${PWD}"/arch/.config/less/.lesshst
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/less "${HOME}"/.config
+    # {{{ .local
 
-    # MIME Types
-    printf "%bSetting up \"MIME Types\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.config/mimeapps.list
-    rm --force "${HOME}"/.local/share/applications/mimeapps.list
-    mkdir --parents --verbose "${HOME}"/.local/share/applications
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/mimeapps.list "${HOME}"/.config
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.config/mimeapps.list "${HOME}"/.local/share/applications
-
-    # Keyboard Layouts
-    printf "%bSetting up \"Keyboard Layouts\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.XCompose
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.XCompose "${HOME}"
-
-    # Binaural audio with OpenAL
-    printf "%bSetting up \"OpenAl\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.alsoftrc
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/arch/.alsoftrc "${HOME}"
-
+    # bin
+    printf "%bSetting up bin..%b\n" "${yellow}" "${reset}"
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/.local/bin/* "${HOME}"/.local/bin
+    # }}}
 }
-
-#Section: "--ubuntu"
-
-function install-dotfiles-ubuntu() {
-
-    # Setup ".config"
-    printf "%bSetting up \".config\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.config
-
-    # Setup "bin"
-    printf "%bSetting up \"bin\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.local/bin
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.local/bin/* "${HOME}"/.local/bin
-
-    # Setup "Bash"
-    printf "%bSetting up \"bash\"...%b\n" "${yellow}" "${reset}"
-    mkbackup -f "${HOME}"/.bashrc        && rm --force --verbose "${HOME}"/.bashrc ;
-    mkbackup -f "${HOME}"/.bash_profile  && rm --force --verbose "${HOME}"/.bash_profile ;
-    mkbackup -f "${HOME}"/.bash_logout   && rm --force --verbose "${HOME}"/.bash_logout ;
-    rm --force --verbose "${HOME}"/.bash_history ;
-    mkbackup -f "${HOME}"/.profile       && rm --force --verbose "${HOME}"/.profile ;
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/bash "${HOME}"/.config
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/bash/.bash_profile "${HOME}"/.profile
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/bash/.bash_logout "${HOME}"
-
-    # Setup "Git"
-    printf "%bSetting up \"Git\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.gitconfig
-    rm --force --recursive "${HOME}"/.config/git
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/git "${HOME}"/.config
-
-    # Setup GTK
-    printf "%bSetting up \"GTK\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/gtk-3.0
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/gtk-3.0 "${HOME}"/.config
-    if git status --porcelain | grep -q bookmarks; then
-        rm --force "${PWD}"/ubuntu/.config/gtk-3.0/bookmarks
-        git restore "${PWD}"/ubuntu/.config/gtk-3.0/bookmarks
-    fi
-    git update-index --skip-worktree "${PWD}"/ubuntu/.config/gtk-3.0/bookmarks
-    {
-        printf "file:///home/%s/Projects\n" "${USER}";
-        printf "file:///home/%s/Repositories\n" "${USER}";
-        printf "file:///home/%s/Video%%20Games\n" "${USER}";
-        printf "file:///home/%s/Virtual%%20Machine\n" "${USER}";
-        printf "file:///home/%s/.config .Config\n" "${USER}";
-        printf "file:///home/%s/.dotfiles .Dotfiles\n" "${USER}";
-        printf "file:///home/%s/Documents\n" "${USER}";
-        printf "file:///home/%s/Music\n" "${USER}";
-        printf "file:///home/%s/Pictures\n" "${USER}";
-        printf "file:///home/%s/Videos\n" "${USER}";
-        printf "file:///home/%s/Downloads\n" "${USER}";
-    } | tee "${PWD}"/ubuntu/.config/gtk-3.0/bookmarks > /dev/null 2>&1 ;
-    sed --expression "s/CURRENTUSERNAME/${USER}/g" --in-place "${PWD}"/ubuntu/.config/gtk-3.0/bookmarks
-
-    # Setup "Flameshot"
-    printf "%bSetting up \"Flameshot\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive "${HOME}"/.config/flameshot
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/flameshot "${HOME}"/.config
-    if git status --porcelain | grep -q flameshot.ini; then
-        rm --force "${PWD}"/ubuntu/.config/flameshot/flameshot.ini
-        git restore "${PWD}"/ubuntu/.config/flameshot/flameshot.ini
-    fi
-    git update-index --skip-worktree "${PWD}"/ubuntu/.config/flameshot/flameshot.ini
-    sed --expression "s/CURRENTUSERNAME/${USER}/g" --in-place "${PWD}"/ubuntu/.config/flameshot/flameshot.ini
-    sed --expression "s/Media\/Screenshots/Pictures\/Screenshots/g" --in-place "${PWD}"/ubuntu/.config/flameshot/flameshot.ini
-
-    # Setup "VSCode"
-    printf "%bSetting up \"VSCode\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.config/Code/User
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/Code/User/snippets "${HOME}"/.config/Code/User
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/Code/User/settings.json "${HOME}"/.config/Code/User
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/Code/User/keybindings.json "${HOME}"/.config/Code/User
-
-    # Wget
-    printf "%bSetting up \"Wget\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.wgetrc
-    rm --force "${HOME}"/.wget-hsts
-    mkfile "${PWD}"/ubuntu.config/wget/.wget-hsts
-    mkfile "${PWD}"/ubuntu.config/wget/.wgetrc
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/wget "${HOME}"/.config
-
-    # Less
-    printf "%bSetting up \"Less\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.lesshst
-    mkfile "${PWD}"/ubuntu.config/less/.lesshst
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.config/less "${HOME}"/.config
-
-    # Keyboard Layouts
-    printf "%bSetting up \"Keyboard Layouts\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.XCompose
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.XCompose "${HOME}"
-
-    # Binaural audio with OpenAL
-    printf "%bSetting up \"OpenAl\"...%b\n" "${yellow}" "${reset}"
-    rm --force "${HOME}"/.alsoftrc
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/ubuntu/.alsoftrc "${HOME}"
-
-}
-
-#Section: "--wsl"
 
 function install-dotfiles-wsl() {
 
-    # Setup ".config"
-    printf "%bSetting up \".config\"...%b\n" "${yellow}" "${reset}"
-    mkdir --verbose "${HOME}"/.config
+    # {{{ "${HOME}"
 
-    # Setup "bin"
-    printf "%bSetting up \"bin\"...%b\n" "${yellow}" "${reset}"
-    mkdir --parents --verbose "${HOME}"/.local/bin
+    printf "%bSetting up HOME..%b\n" "${yellow}" "${reset}"
+    create --directory "${XDG_CONFIG_HOME}"
+    create --directory "${HOME}"/.local/bin
+    # }}}
 
-    # Setup "Bash"
-    printf "%bSetting up \"bash\"...%b\n" "${yellow}" "${reset}"
-    mkbackup -f "${HOME}"/.bashrc        && rm --force --verbose "${HOME}"/.bashrc ;
-    mkbackup -f "${HOME}"/.profile       && rm --force --verbose "${HOME}"/.profile ;
-    rm --force --verbose "${HOME}"/.bash_history ;
-    mkbackup -f "${HOME}"/.bash_logout   && rm --force --verbose "${HOME}"/.bash_logout ;
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/wsl/.config/bash "${HOME}"/.config
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/wsl/.config/bash/.bash_profile "${HOME}"
 
-    # Setup "Git"
-    printf "%bSetting up \"Git\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive --verbose "${HOME}"/.gitconfig
-    rm --force --recursive --verbose "${HOME}"/.config/git
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/wsl/.config/git "${HOME}"/.config
+    # {{{ "${XDG_CONFIG_HOME}"
 
-    # Wget
-    printf "%bSetting up \"Wget\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive --verbose "${HOME}"/wgetrc
-    rm --force --recursive --verbose "${HOME}"/.wget-hsts
-    mkfile "${PWD}"/wsl/.config/wget/.wget-hsts
-    mkfile "${PWD}"/wsl/.config/wget/.wgetrc
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/wsl/.config/wget "${HOME}"/.config
+        for folder in "${PWD}"/.config/*; do
 
-    # Less
-    printf "%bSetting up \"Less\"...%b\n" "${yellow}" "${reset}"
-    rm --force --recursive --verbose "${HOME}"/.lesshst
-    mkfile "${PWD}"/wsl/.config/less/.lesshst
-    ln --force --no-dereference --symbolic --verbose "${PWD}"/wsl/.config/less "${HOME}"/.config
+            [ ! -d "${folder}" ] && continue
+            case "${folder##*/}" in
+                bash | git )
+                    printf "%bSetting up %s..%b\n" \
+                        "${yellow}" "${folder##*/}" "${reset}"
+                    rm --force --recursive --verbose \
+                        "${XDG_CONFIG_HOME:?}"/"${folder##*/}"
+                    ln --force --no-dereference --symbolic --verbose \
+                        "${folder}" "${XDG_CONFIG_HOME}" || exit 2
 
+                    if [ "${folder##*/}" == "bash" ]; then
+                        rm --force --verbose        \
+                            "${HOME}"/.profile      \
+                            "${HOME}"/.bashrc       \
+                            "${HOME}"/.bash_profile \
+                            "${HOME}"/.bash_logout  \
+                            "${HOME}"/.bash_history
+                        ln --force --no-dereference --symbolic --verbose \
+                            "${folder}"/bash_profile "${HOME}"/.bash_profile
+                        ln --force --no-dereference --symbolic --verbose \
+                            "${folder}"/bash_logout "${HOME}"/.bash_logout
+                    fi
+                    ;;
+                * )
+                    :
+                    ;;
+            esac
+        done
+
+    # wget
+    printf "%bSetting up \"wget\"...%b\n" "${yellow}" "${reset}"
+    rm --force --verbose        \
+        "${HOME}"/wgetrc        \
+        "${HOME}"/.wget-hsts
+
+    create --file "${PWD}"/wsl/.config/wget/.wget-hsts
+    create --file "${PWD}"/wsl/.config/wget/.wgetrc
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/wsl/.config/wget "${XDG_CONFIG_HOME}"
+
+    # less
+    printf "%bSetting up \"less\"...%b\n" "${yellow}" "${reset}"
+    rm --force --verbose "${HOME}"/.lesshst
+    create --file "${PWD}"/wsl/.config/less/.lesshst
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/wsl/.config/less "${XDG_CONFIG_HOME}"
+    # }}}
+
+    # {{{ local
+
+    # bin
+    # printf "%bSetting up bin..%b\n" "${yellow}" "${reset}"
+    # }}}
 }
 
-#Section: "--windows"
-
 function install-dotfiles-windows() {
-
     # Setup "Bash"
     printf "%bSetting up \"Bash\"...%b\n" "${yellow}" "${reset}"
     mkbackup -f "${HOME}"/.bashrc       && rm --force "${HOME}"/.bashrc
@@ -436,42 +331,44 @@ function install-dotfiles-windows() {
     printf "%bSetting up \"Less\"...%b\n" "${yellow}" "${reset}"
     rm --force "${HOME}"/.lesshst
     mkfile "${PWD}"/windows/.config/less/.lesshst
-
 }
+# }}}
 
-############################################################
-# Options                                                  #
-############################################################
+# {{{ Options
+
+# {{{ Checks
+
+[[ "${PWD##*/}" == ".dotfiles" ]] || msghelp
+[[ ! -f "${PWD}"/sys ]] && touch "${PWD}"/sys
+# }}}
 
 while true; do
     case "${1}" in
         -h | --help)
-            Help
-            exit 0
+            msghelp
             ;;
         -a | --arch)
-            timer "$(printf "%bWarning: You chose to Install .dotfiles for arch..%b" "${yellow}" "${reset}")"
+            echo "arch" > "${PWD}"/sys
+            timer "Warning: You chose to install .dotfiles for arch.."
             install-dotfiles-arch
             exit 0
             ;;
-        -u | --ubuntu)
-            timer "$(printf "%bWarning: You chose to Install .dotfiles for ubuntu..%b" "${yellow}" "${reset}")"
-            install-dotfiles-ubuntu
-            exit 0
-            ;;
         -wsl | --wsl)
-            timer "$(printf "%bWarning: You chose to Install .dotfiles for wsl..%b" "${yellow}" "${reset}")"
+            echo "wsl" > "${PWD}"/sys
+            timer "Warning: You chose to install .dotfiles for wsl.."
             install-dotfiles-wsl
             exit 0
             ;;
         -w | --windows)
-            timer "$(printf "%bWarning: You chose to Install .dotfiles for windows..%b" "${yellow}" "${reset}")"
+            echo "windows" > "${PWD}"/sys
+            timer "Warning: You chose to install .dotfiles for windows.."
             install-dotfiles-windows
             exit 0
             ;;
         *)
-            Help
-            exit 0
+            msghelp
             ;;
     esac
 done
+
+# }}}

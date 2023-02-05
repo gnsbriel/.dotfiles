@@ -5,7 +5,7 @@ source "${HOME}"/.dotfiles/windows/.config/bash/.bashrc
 
 # ".bash_history" file location
 HIST_FILE="${HOME}/.dotfiles/windows/.config/bash/.bash_history"
-if [ ! -f "${HIST_FILE}" ]; then touch "${HIST_FILE}"; fi
+[ ! -f "${HIST_FILE}" ] && touch "${HIST_FILE}"
 export HISTFILE="${HIST_FILE}"
 
 # Path

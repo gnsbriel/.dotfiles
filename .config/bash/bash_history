@@ -1,0 +1,1309 @@
+ls '/home/gnascsilva/.dotfiles/arch/.config/qtile/autostart.sh'
+chmod +x '/home/gnascsilva/.dotfiles/arch/.config/qtile/autostart.sh'
+ls '/home/gnascsilva/.dotfiles/arch/.config/qtile/autostart.sh'
+clear
+chmod +x '/home/gnascsilva/.dotfiles/arch/.local/bin/*'
+chmod +x '/home/gnascsilva/.dotfiles/arch/.local/bin/changebg'
+chmod +x '/home/gnascsilva/.dotfiles/arch/.local/bin/changeVolume'
+chmod +x '/home/gnascsilva/.dotfiles/arch/.local/bin/exitmenu'
+chmod +x '/home/gnascsilva/.dotfiles/arch/.local/bin/pfetch
+chmod +x '/home/gnascsilva/.dotfiles/arch/.local/bin/pfetch'
+chmod +x '/home/gnascsilva/.dotfiles/arch/.local/bin/runrdp'
+clear
+chmod +x '/home/gnascsilva/.dotfiles/arch/.config/Code/User/install-extentions.sh'
+chmod +x '/home/gnascsilva/.dotfiles/ubuntu/.local/bin/pfetch'
+chmod +x '/home/gnascsilva/.dotfiles/ubuntu/.config/Code/User/install-extentions.sh'
+chmod +x '/home/gnascsilva/.dotfiles/windows/.config/Code/User/install-extentions.sh'
+chmod +x '/home/gnascsilva/Repositories/config-os/install.sh'
+chmod +x '/home/gnascsilva/Repositories/config-os/usr/local/bin/numlock' 
+sudo chmod +x /usr/local/bin/numlock 
+clear
+'/home/gnascsilva/.dotfiles/arch/.config/Code/User/install-extentions.sh'
+git restore "${PWD}"/ubuntu/.config/gtk-3.0/bookmarks
+git restore "${PWD}"/arch/.config/gtk-3.0/bookmarks
+./install.sh -a
+clear
+e
+sudo usermod --append --groups i2c gnascsilva
+clear
+groups
+clear
+sudo usermod --append --groups i2c gnascsilva
+groups
+groups $USER
+clear
+exit
+rm -rf config-os
+sudo rm -rf config-os
+clear
+e
+clear
+unset --helpo
+unset --help
+echo $msgTag
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/changebg"
+sudo pacman -S gtk2-engines-murrine
+clear
+e
+sudo pacman -S gtk-engines
+clear
+e
+c
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/changebg"
+/usr/bin/env bash "/home/gnascsilva/.dotfiles/arch/.local/bin/TempCodeRun.shellscript"
+sudo shutdown -r now
+sudo pacman -S gnome gdm gnome-tweaks
+sudo pacman -Syyuu
+sudo pacman -S gnome gdm gnome-tweaks
+sudo pacman -S gnome-terminal
+sudo systemctl disable ly.service
+sudo systemctl enable gddm.service
+sudo systemctl enable gdm.service
+shutdown -r now
+sudo pacman -S gnome-extra
+sudo pacman -S gnome
+CD .DO
+cd .dotfiles/
+clear
+ls
+cd ..
+ls
+clear
+ls
+sudo apt install awesome
+sudo pacman -S awesome
+sudo systemctl disable gdm.service && sudo systemctl enable ly.service
+shutdown -r now
+clear
+firefox &
+[200~find / -name rc.lua
+sudo find / -name rc.lua
+sudo cp /etc/xdg/awesome/rc.lua $PWD/arch/.config/awesome/
+ls '/home/gnascsilva/.dotfiles/arch/.config/awesome/rc.lua'
+echo $EDITOR
+clear
+alacritty --help
+./install.sh -a
+clear
+sudo cp /etc/xdg/awesome/rc.lua $PWD/arch/.config/awesome/
+./install.sh -a
+clear
+shutdown -r now
+chmod +x '/home/gnascsilva/.dotfiles/arch/.config/awesome/autostart.sh'
+chmod +x '/home/gnascsilva/.dotfiles/arch/.config/awesome/menu.sh'
+'/home/gnascsilva/.dotfiles/arch/.config/awesome/menu.sh'
+chmod +x '/home/gnascsilva/.dotfiles/arch/.config/awesome/menu.sh'
+'/home/gnascsilva/.dotfiles/arch/.config/awesome/menu.sh'
+exitmenu
+xdg-open /home/gnascsilva/.local/share/fonts/MaterialDesign-Font/cheatsheet.html 
+awesome --help
+awesome -k
+rofi --help
+alacritty -e code --new-window tab
+alacritty -e code --new-window Documents
+chmod +x '/home/gnascsilva/.dotfiles/arch/.config/awesome/a.sh'\
+chmod +x '/home/gnascsilva/.dotfiles/arch/.config/awesome/a.sh'
+'/home/gnascsilva/.dotfiles/arch/.config/awesome/a.sh'
+firefox
+firefox &
+'/home/gnascsilva/.dotfiles/arch/.config/awesome/a.sh'
+code --new-window ~/.config/awesome
+pkill xinit
+sudo pkill xinit
+clear
+e
+awesome-client --help
+echo 'awesome.restart()' | awesome-client
+man awesome-client
+cat /usr/share/icons
+ls /usr/share/icons
+exit
+sudo pacman -Syyuu
+sudo pacman -S finan ledger
+sudo pacman -S finance ledger
+sudo pacman -S V
+sudo pacman -S kmymoney2
+sudo pacman -S ledger
+sudo pacman -S kmymoney2
+ledger
+ledger -f
+ledger -f finance
+touch Documents/finance.txt
+ledger -f Documents/finance.txt 
+sudo pacman -S kmymoney
+ledger --help
+ledger -f Documents/finance.txt 
+clear
+e
+sudo pacman -S kmymoney gnucash
+shutdown -r now
+sudo shutdown -r now
+sudo pacman -S xmonad-contrib
+sudo pacman -S xmonad xmonad-contrib xterm dmenu --noconfirm
+cd Repositories/
+clear
+git clone https://aur.archlinux.org/hyprland.git]
+git clone https://aur.archlinux.org/hyprland.git
+cd hyprland/
+clear
+makepkg -si --noconfirm
+shutdown -r now
+sudo shutdown -r now
+clear
+pfetch
+clear
+exec  hyprladn
+exec  hyprland
+Hyprland
+cat /tmp/hypr/$(ls -t /tmp/hypr/ | head -n 1)/hyprland.log
+cd Repositories/hyprland/
+cmake install hyprland-0.20.1beta
+cmake 
+clear
+e
+exit
+rm -rf *
+clear
+ls
+git clone https://aur.archlinux.org/spotify.git
+cd spotify/
+clear
+makepkg -si --noconfirm
+curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | gpg --import -
+makepkg -si --noconfirm
+sudo pacman -S nautilus
+e
+shutdown -r now
+sudo shutdown -r no
+sudo shutdown -r now
+lua "/home/gnascsilva/.config/awesome/TempCodeRun.lua"
+lua "/home/gnascsilva/.config/awesome/rc.lua"
+sudo pacman -Syyuu
+echo 'awesome.restart()' | awesome-client
+echo 'awesome.quit()' | awesome-client
+shutdown -r now
+sudo systemctl suspend
+shutdown -r now
+nano .bash_profile 
+clear
+e
+clear
+nano .bash_profile 
+exit
+cd Repositories/
+ls
+rm -rf hyprland/
+clear
+git clone https://aur.archlinux.org/yay-bin
+cd yay-bin
+makepkg -si
+yay -S hyprland-bin polkit-gnome ffmpeg neovim viewnior dunst rofi pavucontrol thunar starship wl-clipboard wf-recorder swaybg grimblast-git ffmpegthumbnailer tumbler playerctl noise-suppression-for-voice thunar-archive-plugin kitty waybar-hyprland wlogout swaylock-effects sddm-git nwg-look-bin nordic-theme papirus-icon-theme pamixer
+clear
+pacman -Syu cmake gcc libgl libegl fontconfig spice-protocol make nettle pkgconf binutils             libxi libxinerama libxss libxcursor libxpresent libxkbcommon wayland-protocols             ttf-dejavu
+sudo pacman -Syu cmake gcc libgl libegl fontconfig spice-protocol make nettle pkgconf binutils             libxi libxinerama libxss libxcursor libxpresent libxkbcommon wayland-protocols             ttf-dejavu
+pacman -Syu dkms linux-headers
+sudo pacman -Syu dkms linux-headers
+sudo nano /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+shutdown -r now
+dmesg | grep -i -e DMAR -e IOMMU
+sudo dmesg | grep -i -e DMAR -e IOMMU
+e
+cd Documents/
+clear
+touch test.sh
+chmod +x test.sh 
+nano test.sh 
+./test.sh
+cd Documents/
+./test.sh
+sudo pacman -S Virt-Manager
+sudo pacman -S virt-manager
+clear
+shutdown -r now
+lspci -nm
+clear
+lspci -nn
+lspci -nn | grep amd
+lspci -nn | grep "AMD"
+sudo nano /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+shutdown -r now 
+lspci -nn | grep "AMD"
+lspci -nn | grep "INTEL"
+lspci -nn | grep "Intel"
+sudo nano /etc/modprobe.d/vfio.con
+e
+cat /etc/modprobe.d/vfio.con 
+mv /etc/modprobe.d/vfio.con /etc/modprobe.d/vfio.conf
+sudo mv /etc/modprobe.d/vfio.con /etc/modprobe.d/vfio.conf
+clear
+cat /etc/modprobe.d/vfio.conf
+sudo mkinitcpio -p linux
+shutdown -r now
+lspci -k
+lspci -k | grep AMD
+clear
+e
+sudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat
+sudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libquestfs --noconfirm
+sudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat --noconfirm
+sudo pacman -S libvirt-operc
+sudo pacman -S libvirt-openrc
+c
+sudo rc-service libvirtd start
+sudo systemctl enable libvirtd.service
+sudo nano /etc/libvirt/libvirt.conf 
+sudo nano /etc/libvirt/libvirtd.conf 
+clear
+sudo usermod -aG libvirt gnascsilva
+groups
+groups $USER
+clear
+shutdown -r now
+sudo systemctl restart libvirtd.service
+clear
+sudo systemctl restart libvirtd.service
+clear
+exit
+pwd
+clear
+e
+sudo nano /etc/pacman.d/mirrorlist 
+clear
+sudo pacman -Syyuu
+clear
+./install.sh -a -i
+clear
+pacman --help
+pacman -S --help
+clear
+e
+shutdown -r now
+egrep -c '(vmx|svm)' /proc/cpuinfo
+grep -c '(vmx|svm)' /proc/cpuinfo
+egrep -c '(vmx|svm)' /proc/cpuinfo
+grep -E '(vmx|svm)' /proc/cpuinfo
+grep -e '(vmx|svm)' /proc/cpuinfo
+clear
+e
+shutdown -r now
+code --disable-gpu-vsync --disable-frame-rate-limit
+code --help
+code --disable-gpu
+code --new-window /.local/share/qtile/qtile.log
+code --new-window ~/.local/share/qtile/qtile.log
+/bin/python -m pip install -U pycodestyle
+/bin/bash "/home/gnascsilva/Repositories/config-os/packages/arch_linux/DE/qtile"
+clear
+pip install python3-cffi
+/bin/bash "/home/gnascsilva/Repositories/config-os/packages/arch_linux/DE/qtile"
+clear
+/bin/bash "/home/gnascsilva/Repositories/config-os/packages/arch_linux/DE/qtile"
+clear
+cat /usr/share/xsessions/qtile.desktop 
+pacman -S --query --info ~/.xinitrc
+pacman -S --query --info xorg-xinit 
+pacman --query --info xorg-xinit 
+pacman --sync  xorg-xinit 
+sudo pacman --sync  xorg-xinit 
+sudo nano /etc/pacman.d/mirrorlist 
+pacman -Syy
+sudo pacman -Syy
+pacman -S xorg-xinit 
+sudo pacman -S xorg-xinit 
+clear
+ls $HOME
+clear
+cat /etc/X11/xinit/xinitrc
+cat /etc/X11/xinit/xinitrc > $PWD/.dotfiles/arch/.xinitrc
+pwd
+cat /etc/X11/xinit/xinitrc > $PWD/.dotfiles/arch/.xinitrc
+cat /etc/X11/xinit/xinitrc > $PWD/arch/.xinitrc
+ls /etc/X11/xinit/xinitrc.d
+cat /etc/X11/xinit/xinitrc.d/40-libcanberra-gtk-module.sh 
+cat /etc/X11/xinit/xinitrc.d/90xbrlapi 
+c
+cat /etc/X11/xinit/xinitrc.d/90xbrlapi 
+cat /etc/X11/xinit/xinitrc.d/50-systemd-user.sh 
+c
+cat /etc/X11/xinit/xinitrc.d/50-systemd-user.sh 
+sudo -pacman -S xorg-xinit  # startx
+sudo -pacman -S xorg-xinit
+sudo pacman -S xorg-xinit
+sudo pacman -S xorg-xinit  # startx
+clear
+tty
+clear
+pgrep qtile\
+pgrep qtile
+clear
+sudo systemctl disable ly.service
+clear
+shutdown -r now
+nano .bash_profile 
+shutdown -r now
+pwd
+ls
+clear
+nano .bash_profile 
+shutdown -r now
+xrndr
+xrander
+xrandr
+xrandr --help
+clear
+xrandr --help
+xrandr --current
+clear
+xrandr --listactivemonitors
+chmod +x '/home/gnascsilva/.dotfiles/arch/.local/bin/screenres'
+c
+/bin/sh "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+xrandr -q
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+xrandr --help
+xrandr --output DisplayPort-2
+xrandr --output DisplayPort-2 --help
+xrandr --output DisplayPort-2 --mode
+xrandr --output DisplayPort-2 --mode --listactivemonitors
+xrandr --output DisplayPort-2 --mode
+xrandr --output DisplayPort-2 --mode --help
+xrandr -d DisplayPort-2
+clear
+xrandr --help
+xrandr --listproviders
+xrandr -d DisplayPort-2 -r
+xrandr -d DisplayPort-2 -r -v
+xrandr -d DisplayPort-2 -v -r
+xrandr
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+xrandr
+xrandr --help
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+xrandr
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+xrandr --output DisplayPort-2 --auto --rate 165
+xrandr
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+xrandr -q
+clear
+xrandr -d DisplayPort-2
+xrandr -d 1
+xrandr -d 2
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+clear
+cat /etc/machine-info
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.local/bin/screenres"
+xrandr
+xrandr --output DisplayPort-2 --mode 1920x1080 --rate 165
+e
+exec qtile
+exec qtile start
+exec qtile start
+clear
+exec qtile start
+shutdown -r now
+shutdown -P now
+runrdo
+runrdp
+2
+runrdp
+nano .bash_profile 
+nano .dotfiles/install.sh 
+cd .dotfiles/
+./install.sh -a
+exit
+sudo nano /etc/environment 
+CLEAR
+exit
+shutdown -r now
+runrdp
+echo $XDG_HOME_DIR
+echo $XDG_CONFIG_HOME
+echo $XDG_HOME_CONFIG
+cat /etc/environment 
+echo $XDG_CONFIG_HOME
+ls $XDG_CONFIG_HOME
+ls $XD
+clear
+exit
+cat DEFAULT=
+cat /etc/security/pam_env.conf
+c
+cat /etc/profile
+sudo nano etc/security/pam_env.conf
+sudo nano /etc/security/pam_env.conf
+sudo nano /etc/environment 
+sudo nano /etc/security/pam_env.conf
+shutdown -r now
+echo $XDG_CONFIG_HOME
+clear
+exit
+cat /etc/security/pam_env.conf
+./install.sh -a
+sudo nano /etc/security/pam_env.conf
+cat /etc/security/pam_env.conf
+c
+./install.sh -a
+cat /etc/security/pam_env.conf
+c
+clear
+exit
+shutdown -r now
+clear
+e
+cat /etc/security/pam_env.conf
+./install.sh 
+./install.sh -a
+e
+./install.sh -a
+sudo pacman -S openal
+sudo pacman -Qi openal
+echo $DISPLAY
+ECHO $XDG_VTNR
+echo $XDG_VTNR
+/bin/bash "/home/gnascsilva/.dotfiles/arch/.config/bash/Untitled-1.sh"
+'/home/gnascsilva/.dotfiles/arch/.config/bash/Untitled-1.sh' qtile
+echo $DE
+clear
+e
+exit
+man openal
+openal --help
+clear
+e
+xauth list
+clear
+ls
+cat .Xauthority 
+clear
+cat /etc/security/pam_env.conf
+echo $XDG_RUNTIME_DIR
+ls /run/user/1000/
+e
+runrdp
+clear
+exit
+ls /run/user/1000/
+rm -f .Xauthority 
+clear
+shutdown -r now
+echo $DE
+clear
+e
+shutdown -r now
+sudo pacman -S libx11
+clear
+e
+ls
+shutdown -r now
+cat "$XDG_CONFIG_HOME"/X11/xcompose
+./install.sh -a
+exit
+echo $EDITOR
+clear
+$EDITOR .bash_profile 
+clear
+printenv
+systemctl show-environment
+systemctl --user show-environment
+clear
+systemctl --user show-environment
+c
+env
+clear
+printenv > .dotfiles/env
+e
+sudo pacman -S qtile-extras
+c
+e
+qtile shell
+exit
+/bin/python
+code ~/.local/share/qtile/qtile.log
+runrdp
+exec qtile start
+nano .dotfiles/arch/.config/qtile/config.py 
+mv .dotfiles/arch/.config/qtile/config.py config.py
+exec qtile start
+pkill code
+e
+code ~/.local/share/qtile/qtile.log
+ln --force --no-dereference --symbolic --verbose /home/gnascsilva/.local/share/qtile/qtile.log "${PWD}"/arch/.config/qtile/qtile.log
+e
+./install.sh 
+./install.sh -a
+runrdp
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+clear
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+clear
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+clear
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+clear
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+clear
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+e
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/config.py"
+c
+e
+shutdown -r now
+ls
+cp .config/qtile/config.py $PWD/config
+mv config.py .config/qtile/config.py 
+exec qtile start
+rm .config/qtile/config.py 
+exec qtile start
+pkill qtile
+exec qtile start
+shutdown -r now
+alacritty --help
+sudo pacman -S powerline-fonts
+pkill qtile
+qtile start
+exec qtile start
+nano .config/qtile/config.py 
+exec qtile start
+sudo nano /etc/pacman.d/mirrorlist 
+e
+sudo pacman -S font-manager
+c
+sudo pacman -S powerline-fonts
+e
+sudo pacman -S powerline
+e
+git clone https://github.com/ryanoasis/powerline-extra-symbols.git
+f-cache --help
+fc-cache --help
+fc-cache -r
+e
+sudo pacman -S font-forge
+sudo pacman -S fontforge
+e
+fc-cache -r
+git --revert
+git --reset
+git --revert all
+e
+c
+fc-cache -r
+git clone https://github.com/powerline/fonts.git
+fc-cache -r
+fc-cache --help
+fc-cache --verbose --really-force
+e
+fc-cache -r
+e
+sudo pacman -S  	awesome-terminal-fonts  	powerline  	powerline-common  	powerline-fonts  	powerline-vim 	python-powerline --noconfirm
+fc-cache -r
+e
+pip install qtile-extras
+pip install qtile_extras
+pip install qtile-extra
+e
+sudo pacman -S ttf-ubuntu-font-family
+e
+kvantum
+kvantum-theme-engine
+kvantum
+kvantum-engine
+kvantum-theme
+e
+sudo pacman -S kvantum-qt5
+ls /usr/bin | grep -e kvantum
+shutdown -r now
+qtile shell
+qtile cmd-obj -o cmd -f restart
+nano .config/qtile/config.py 
+exec qtile start
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+firefox &
+nano .config/qtile/config.py 
+qtile cmd-obj -o cmd -f restart
+nano .config/qtile/config.py 
+exit
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+clear
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/keys.py"
+qtile cmd-obj -o cmd -f restart
+sudo systemctl suspend
+e
+qtile cmd-obj -o cmd -f restart
+nano .config/qtile/config.py 
+exit
+qtile cmd-obj -o cmd -f restart
+pacman -Syy
+sudo pacman -Syy
+sudo pacman -Syyu
+e
+runrdp
+checkupdates
+sudo pacman -S checkupdates
+clear
+e
+ifconfig eth0 up
+sudo pacman -S ifconfig
+e
+sudo ip link set eth0 down
+ip --list
+ip --help
+sudo ip link set down
+lshw -C network
+networkmanager --help
+network-manager --help
+NetworkManager --help
+c
+NetworkManager --help
+ip link show dev enp2s0
+ip link show dev eno1
+ip link set eno1 down
+sudo ip link set eno1 down
+sudo ip link set eno1 up
+sudo nano /etc/sudoers.d/wheel
+c
+e
+ip link set eno1 up
+sudo nano /etc/sudoers.d/wheel
+c
+e
+ip link set eno1 up
+ip link set eno1 down
+sudo pacman -S linux-headers
+sudo pacman -S v4l2loopback-dc
+sudo pacman -S v4l2loopback-dcm
+sudo pacman -S v4l2loopback
+cd RE
+cd Repositories/
+clear
+git clone https://aur.archlinux.org/droidcam.git
+cd droidcam/
+clear
+makepkg -si --noconfirm
+e
+shutdown -r now
+python -u "/home/gnascsilva/a.py"
+c
+e
+shutdown -r now
+shutdown -P now
+tree /
+sudo pacman -S time tree
+clear
+time tree /
+e
+sudo pacman -S vim
+c
+e
+vim .bash_profile 
+clear
+vim .bash_profile 
+cat .bash_p
+cat .bash_profile 
+clear
+sudo pacman -S micro
+clear
+micro .bash_profile 
+ls .config/micro/
+micro .config/micro/settings.json 
+cd .dotfiles/
+micro install.sh 
+micro .config/micro/settings.json 
+micro ~/.config/micro/settings.json 
+micro .config/micro/settings.json 
+micro install.sh 
+micro ~/.config/micro/settings.json 
+micro install.sh 
+micro ~/.config/micro/settings.json 
+clear
+m 
+micro exit
+clear
+e
+micro .config/bash/bash_aliases 
+clear
+m .bash_profile 
+m .config/micro/bindings.json 
+runrdp
+shutdown -P now
+qtile cmd-obj -o cmd -f restart
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/config.py"
+qtile cmd-obj -o cmd -f restart
+exit
+micro .config/qtile/qtile.log 
+exec qtile start 
+micro .config/qtile/qtile.log 
+micro .config/qtile/config.py 
+exec qtile start
+sleep 5 ; notify-send -u critical "IRC" "This is a critical IRC notification"
+sleep 5 ; dunst -u critical "IRC" "This is a critical IRC notification"
+sleep 5 ; dunstify -u critical "IRC" "This is a critical IRC notification"
+dunstify --help
+dunstify -u urgent "IRC" "This is a critical IRC notification"
+c
+dunstify -u urgent "IRC" "This is a critical IRC notification"
+c
+sleep 2 ; dunstify -u urgent "IRC" "This is a critical IRC notification"
+qtile cmd-obj -o cmd -f restart
+e
+/bin/python
+qtile cmd-obj -o cmd -f restart
+e
+exit
+rm $XDG_DATA_HOME/qtile/qtile.log
+rm $XDG_DATA_HOME/qtile/qtile.log ; ln --force --no-dereference --symbolic --verbose "${XDG_CONFIG_HOME}"/qtile/qtile.log "${XDG_DATA_HOME}"/qtile/qtile.log
+touch "${XDG_CONFIG_HOME}"/qtile/qtile.log
+rm $XDG_DATA_HOME/qtile/qtile.log ; ln --force --no-dereference --symbolic --verbose "${XDG_CONFIG_HOME}"/qtile/qtile.log "${XDG_DATA_HOME}"/qtile/qtile.log
+e
+ln --force --no-dereference --symbolic --verbose "${XDG_DATA_HOME}"/qtile/qtile.log "${XDG_CONFIG_HOME}"/qtile/qtile.log
+cat .local/share/qtile/qtile.log
+ls .local/share/qtile/qtile.log
+rm -f .local/share/qtile/qtile.log
+ls .local/share/qtile/qtile.log
+cat .local/share/qtile/qtile.log
+clear
+exit
+ln --force --no-dereference --symbolic --verbose "${XDG_DATA_HOME}"/qtile/qtile.log "${XDG_CONFIG_HOME}"/qtile/qtile.log
+clear
+code "${XDG_DATA_HOME}"/qtile/qtile.log
+ln --force --no-dereference --symbolic --verbose "${XDG_DATA_HOME}"/qtile/qtile.log "${XDG_CONFIG_HOME}"/qtile/qtile.log
+e
+qtile --help
+e
+ln --force --no-dereference --symbolic --verbose "${XDG_DATA_HOME}"/qtile/qtile.log "${XDG_CONFIG_HOME}"/qtile/log
+e
+ln --force --no-dereference --symbolic --verbose "${XDG_DATA_HOME}"/qtile/qtile.log "${XDG_CONFIG_HOME}"/qtile
+ln --force --no-dereference --symbolic --verbose "${XDG_DATA_HOME}"/qtile/qtile.log "${XDG_CONFIG_HOME}"/qtile/qtile.log
+./install.sh 
+./install.sh -a
+c
+e
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/theme.py"
+clear
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/TempCodeRun.py"
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+cc
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+c
+ee
+e
+e
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+c
+python -u "/home/gnascsilva/.dotfiles/arch/.config/qtile/themes/theme.py"
+cd '/home/gnascsilva/.dotfiles/arch/.config/alacritty'
+git clone https://github.com/alacritty/alacritty-theme.git
+c
+e
+e
+c
+ls
+clear
+sudo pacman -S micro
+clear
+e
+git clone https://github.com/alacritty/alacritty-theme.git
+./install.sh -a
+e
+ls
+clear
+bash --help
+bash -i --help
+man bash
+e
+shutdown -r now
+xprop
+xdotool selectwindow getwindowgeometry
+clear
+cd .dotfiles/
+e
+cd .dotfiles/
+c
+e
+c
+e
+c
+e
+replace
+e
+link
+link --help
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+e
+rm --help
+cd Documents/
+clear
+ls
+touch a
+touch b
+rm --force a b
+ls
+clear
+ls
+touch a b
+ls
+rm --force a b
+ls
+clear
+e
+exit
+clear
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+ln --helop
+ln --help
+sudo pacman -S kitty
+kitty
+sudo tree /
+sudo time tree /
+exit
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+e
+mkfolder
+e
+mkdir --help
+man mkdir
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+ls "${XDG_CONFIG_HOME}" /alacritty
+echo "${XDG_CONFIG_HOME}" /alacritty
+e
+create
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+git restore "${PWD}"/arch/.config/gtk-3.0/bookmarks
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+git restore "${PWD}"/arch/.config/gtk-3.0/bookmarks
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+git status --porcelain | grep -q bookmarks
+e
+rm --force "${PWD}"/arch/.config/gtk-3.0/bookmarks
+                git restore "${PWD}"/arch/.config/gtk-3.0/bookmarks
+c
+e
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+git update-index --help
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+git update-index --no-skip-worktree '/home/gnascsilva/.dotfiles/arch/.config/gtk-3.0/bookmarks'
+e
+git update-index --no-skip-worktree '/home/gnascsilva/.dotfiles/arch/.config/gtk-3.0/bookmarks'
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+git update-index --skip-worktree '/home/gnascsilva/.dotfiles/arch/.config/flameshot/flameshot.ini'
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+env
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+clear
+e
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+chmod +x install
+./install
+./install -a
+micro .bash_profile 
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+/bin/bash "/home/gnascsilva/.dotfiles/install -a"
+/bin/bash "/home/gnascsilva/.dotfiles/install" -a
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+./install -a
+c
+./install -a
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+./install -a
+c
+./install -a
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+./install -a
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+./install -a
+c
+./install -a
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+./install -a
+c
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+./install -a
+echo "${PWD##*/}"
+echo pwd
+pwd
+c
+e
+cd ..
+./.dotfiles/install -a
+ls
+cd .dotfiles/
+./install -a
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+cd ..
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+cd .dotfiles/
+clear
+ls
+c
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+c
+./install -a
+c
+./install -a
+c
+./install -a
+c
+./install -a
+c
+e
+c
+e
+c
+./install -a
+c
+./install -a
+c
+e
+./install -a
+c
+e
+./install -a
+c
+./install -a
+/bin/bash "/home/gnascsilva/.dotfiles/install"
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+./install.sh 
+clear
+./install.sh -u
+cl
+c
+./install.sh -a
+uname -r
+uname -r | grep -q arch
+uname -r | grep arch
+c
+e
+uname -r grep -q arch
+bash "/home/gnascsilva/.dotfiles/.config/bash/TempCodeRun.shellscript"
+uname -r | grep -q arch && echo "arch"
+uname -r | grep -q arcah && echo "arch"
+uname -r | grep -q arch && echo "arch"
+e
+c
+e
+uname -r | grep a b c
+uname -r | grep "a" "a"
+uname -r | grep "a"
+uname -r | grep "a" r
+uname -r | grep "a r"
+uname -r | grep a
+cat /proc/version
+cat /etc/hostname
+cat /etc/host
+cat /etc/hosts
+clear
+e
+c
+e
+c
+e
+bash "/home/gnascsilva/.dotfiles/.config/bash/TempCodeRun.shellscript"
+bash "/home/gnascsilva/.dotfiles/.config/bash/bashrc"
+bash "/home/gnascsilva/.dotfiles/.config/bash/TempCodeRun.shellscript"
+c
+cat $(uname -r)
+c
+e
+c
+e
+groups $USER
+c
+e
+c
+e
+e
+mktemp
+cleanup
+mktempo
+mktemp
+micro /tmp/tmp.RySqglD3PC 
+e
+/bin/bash "/home/gnascsilva/.dotfiles/install.sh"
+touch practices
+chmod +x practices 
+clear
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices"
+touch --help
+e
+e/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.shellscript"
+/bin/bash "/home/gnascsilva/.dotfiles/practices"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices"
+./practices blue
+/bin/bash "/home/gnascsilva/.dotfiles/practices"
+./install.sh -a
+./install.sh --arch
+pwd
+c
+e
+./install.sh --arch
+/bin/bash "/home/gnascsilva/.dotfiles/practices"
+bash -n install.sh 
+/bin/bash "/home/gnascsilva/.dotfiles/practices"
+c
+bash -n install.sh 
+c
+bash -n install.sh 
+bash -v install.sh 
+bash -n practices 
+sudo pacman -S bashdb
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.sh"
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+clear
+c
+ec
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+read --help
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+cat "${PWD}"/.config/*
+ls "${PWD}"/.config/*
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.sh"
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/TempCodeRun.sh"
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+./practices.sh 
+c
+./practices.sh 
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+clear
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+./practices.sh --linux --arch --test --beast
+clear
+e
+echo ${TRACE-0}
+echo ${TRACE}
+echo ${TRACE-0}
+echo ${TRACE-1}
+clear
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+./practices.sh 
+./practices.sh a
+./practices.sh ~
+./practices.sh --help
+./practices.sh --h
+./practices.sh -h
+clear
+e
+./practices.sh -h
+c
+e
+./practices.sh -h
+c
+e
+./install.sh 
+./practices.sh 
+c
+./practices.sh 
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+./practices.sh -a
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+./practices.sh -a
+ECHO $XDG_CONFIG_HOME
+echo $XDG_CONFIG_HOME
+c
+e
+/bin/bash "/home/gnascsilva/.dotfiles/practices.sh"
+c
+./practices.sh --arch
