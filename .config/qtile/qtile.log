@@ -1,3 +1,0 @@
-2023-02-03 18:28:39,771 WARNING libqtile lifecycle.py:_atexit():L33 Restarting Qtile with os.execv(...)
-2023-02-03 20:06:12,502 WARNING libqtile lifecycle.py:_atexit():L33 Restarting Qtile with os.execv(...)
-2023-02-04 15:55:24,736 WARNING libqtile lifecycle.py:_atexit():L33 Restarting Qtile with os.execv(...)
