@@ -1,30 +1,42 @@
 # shellcheck shell=bash
 
-# {{{ PATH
+# Directories
+dotconfig="${XDG_CONFIG_HOME:-${HOME}/.config}"
 
-    export PATH="${PATH}":"${HOME}"/.local/bin
-# }}}
+# Path
+export PATH="${PATH}":"${HOME}"/.local/bin
 
-# {{{ Variable Definitions
+# User Environment Variables
+export GTK2_RC_FILES="${dotconfig}"/gtk-2.0/gtkrc-2.0
+export LESSHISTFILE="${dotconfig}"/less/lesshst
+export WGETRC="${dotconfig}"/wget/wgetrc
 
+if uname -r | grep -q "arch" ; then
     export QT_STYLE_OVERRIDE=kvantum
-    export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
-    export LESSHISTFILE="${XDG_CONFIG_HOME}"/less/lesshst
-    export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
     export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-# }}}
+fi
 
-# {{{ Bash
+if [[ $(uname -r | grep -c "arch") == 0 \
+    && $(uname -r | grep -c "wsl") == 0 ]]; then
+        HIST_FILE="${dotconfig}"/bash/bash_history
+        [[ ! -f "${HIST_FILE}" ]] && touch "${HIST_FILE}"
+        export HISTFILE="${HIST_FILE}"
+fi
 
-    source "${XDG_CONFIG_HOME}"/bash/bashrc
-# }}}
+# Bash
+# shellcheck disable=SC1091
+source "${dotconfig}"/bash/bashrc
 
-# {{{ Xinit
+# Xinit
+if uname -r | grep -q "arch" ; then
 
     DE="qtile"  # Desktop Environment
 
     if [[ "$(tty)" = "/dev/tty1" ]]; then
-        pgrep "${DE}" || startx "${XDG_CONFIG_HOME}"/X11/xinitrc "${DE}"
+        pgrep "${DE}" || startx "${dotconfig}"/X11/xinitrc "${DE}"
     fi
+
     unset DE
-# }}}
+fi
+
+unset dotconfig

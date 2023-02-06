@@ -41,7 +41,9 @@ readonly nc='\033[0m'
 # printf "'%b' 'TEXT' '%s' '%b'\n" "${color}" "${var}" "${nc}"
 
 # Variable definitions
-script_path="$(dirname "${0}")" ; readonly script_path
+script_path="$(dirname "${0}")"                   ; readonly script_path
+dotconfig="${XDG_CONFIG_HOME:-${HOME}/.config}"   ; readonly dotconfig
+dotlocal="${XDG_DATA_HOME:-${HOME}/.local/share}" ; readonly dotlocal
 
 # Help Message
 function helpmsg() {
@@ -67,7 +69,7 @@ function ctrl_c() {
 
 function countdown() {
 
-    if [ "${#}" == "" ]; then
+    if [[ "${#}" == "" ]]; then
         echo "Syntax: countdown [PHRASE..]"
         exit 2
     fi
@@ -88,14 +90,14 @@ function create() {
     case "${option}" in
         -f | --file )
             for file in "${path[@]}"; do
-                [ -f "${file}" ] && return
+                [[ -f "${file}" ]] && return
                 mkdir --parents --verbose "$(dirname "${file}")" \
                     && touch "${file}" || exit 2
             done
             ;;
         -d | --directory )
             for dir in "${path[@]}"; do
-                [ -d "${dir}" ] && return
+                [[ -d "${dir}" ]] && return
                 mkdir --parents --verbose "${dir}" || exit 2
             done
             ;;
@@ -116,7 +118,7 @@ function install-dotfiles-arch() {
     # HOME
     printf "%bSetting up HOME..%b\n" "${yellow}" "${nc}"
     create --directory       \
-        "${XDG_CONFIG_HOME}" \
+        "${dotconfig}"       \
         "${HOME}"/.local/bin
 
     ln --force --no-dereference --symbolic --verbose \
@@ -125,25 +127,25 @@ function install-dotfiles-arch() {
     # XDG_CONFIG_HOME
     for folder in "${PWD}"/.config/*; do
 
-        [ -f "${folder}" ] && continue
+        [[ -f "${folder}" ]] && continue
         case "${folder##*/}" in
             Code | Thunar | xfce4 | pluma| less | wget ) : ;;
             * )
                 printf "%bSetting up %s..%b\n"          \
                     "${yellow}" "${folder##*/}" "${nc}"
-                rm --force --recursive --verbose           \
-                    "${XDG_CONFIG_HOME:?}"/"${folder##*/}"
+                rm --force --recursive --verbose     \
+                    "${dotconfig:?}"/"${folder##*/}"
                 ln --force --no-dereference --symbolic --verbose \
-                    "${folder}" "${XDG_CONFIG_HOME}"
+                    "${folder}" "${dotconfig}"
 
-                if [ "${folder##*/}" == "qtile" ]; then
-                    rm --force --verbose "${XDG_DATA_HOME}"/qtile/qtile.log
+                if [[ "${folder##*/}" == "qtile" ]]; then
+                    rm --force --verbose "${dotlocal}"/qtile/qtile.log
                     ln --force --no-dereference --symbolic --verbose \
-                        "${XDG_CONFIG_HOME}"/qtile/qtile.log         \
-                        "${XDG_DATA_HOME}"/qtile/qtile.log
+                        "${dotconfig}"/qtile/qtile.log               \
+                        "${dotlocal}"/qtile/qtile.log
                 fi
 
-                if [ "${folder##*/}" == "bash" ]; then
+                if [[ "${folder##*/}" == "bash" ]]; then
                     rm --force --verbose        \
                         "${HOME}"/.profile      \
                         "${HOME}"/.bashrc       \
@@ -157,12 +159,12 @@ function install-dotfiles-arch() {
                         "${folder}"/bash_logout "${HOME}"/.bash_logout
                 fi
 
-                if [ "${folder##*/}" == "X11" ]; then
+                if [[ "${folder##*/}" == "X11" ]]; then
                     ln --force --no-dereference --symbolic --verbose \
                         "${folder}"/xcompose "${HOME}"/.XCompose
                 fi
 
-                if [ "${folder##*/}" == "gtk-3.0" ]; then
+                if [[ "${folder##*/}" == "gtk-3.0" ]]; then
                     git update-index --no-skip-worktree "${folder}"/bookmarks
                     if git status --porcelain | grep -q bookmarks; then
                         rm --force --verbose "${folder}"/bookmarks
@@ -173,7 +175,7 @@ function install-dotfiles-arch() {
                         --in-place "${folder}"/bookmarks
                 fi
 
-                if [ "${folder##*/}" == "flameshot" ]; then
+                if [[ "${folder##*/}" == "flameshot" ]]; then
                     git update-index --no-skip-worktree \
                         "${folder}"/flameshot.ini
                     if git status --porcelain | grep -q flameshot.ini; then
@@ -190,34 +192,34 @@ function install-dotfiles-arch() {
 
     # code
     printf "%bSetting up code..%b\n" "${yellow}" "${nc}"
-    create --directory "${XDG_CONFIG_HOME}"/Code/User
+    create --directory "${dotconfig}"/Code/User
     ln --force --no-dereference --symbolic --verbose \
         "${PWD}"/.config/Code/User/snippets          \
-        "${XDG_CONFIG_HOME}"/Code/User
+        "${dotconfig}"/Code/User
     ln --force --no-dereference --symbolic --verbose \
         "${PWD}"/.config/Code/User/settings.json     \
-        "${XDG_CONFIG_HOME}"/Code/User
+        "${dotconfig}"/Code/User
     ln --force --no-dereference --symbolic --verbose \
         "${PWD}"/.config/Code/User/keybindings.json  \
-        "${XDG_CONFIG_HOME}"/Code/User
+        "${dotconfig}"/Code/User
 
     # thunar
     printf "%bSetting up thunar..%b\n" "${yellow}" "${nc}"
-    create --directory              \
-        "${XDG_CONFIG_HOME}"/Thunar \
-        "${XDG_CONFIG_HOME}"/xfce4/xfconf/xfce-perchannel-xml
-    ln --force --no-dereference --symbolic --verbose                \
-        "${PWD}"/.config/Thunar/uca.xml "${XDG_CONFIG_HOME}"/Thunar
+    create --directory        \
+        "${dotconfig}"/Thunar \
+        "${dotconfig}"/xfce4/xfconf/xfce-perchannel-xml
+    ln --force --no-dereference --symbolic --verbose          \
+        "${PWD}"/.config/Thunar/uca.xml "${dotconfig}"/Thunar
     ln --force --no-dereference --symbolic --verbose                 \
         "${PWD}"/.config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml \
-        "${XDG_CONFIG_HOME}"/xfce4/xfconf/xfce-perchannel-xml
+        "${dotconfig}"/xfce4/xfconf/xfce-perchannel-xml
 
     # pluma
     printf "%bSetting up pluma..%b\n" "${yellow}" "${nc}"
-    create --directory "${XDG_CONFIG_HOME}"/pluma/styles
+    create --directory "${dotconfig}"/pluma/styles
     ln --force --no-dereference --symbolic --verbose \
         "${PWD}"/.config/pluma/styles/arc-dark.xml   \
-        "${XDG_CONFIG_HOME}"/pluma/styles
+        "${dotconfig}"/pluma/styles
 
     # wget
     printf "%bSetting up wget..%b\n" "${yellow}" "${nc}"
@@ -225,26 +227,26 @@ function install-dotfiles-arch() {
         "${HOME}"/wgetrc      \
         "${HOME}"/.wget-hsts
 
-    create --file                         \
-        "${PWD}"/.config/wget/wget-hsts   \
-        "${PWD}"/.config/wget/wget/wgetrc
+    create --file                       \
+        "${PWD}"/.config/wget/wget-hsts \
+        "${PWD}"/.config/wget/wgetrc
 
     ln --force --no-dereference --symbolic --verbose \
-        "${PWD}"/.config/wget "${XDG_CONFIG_HOME}"
+        "${PWD}"/.config/wget "${dotconfig}"
 
     # less
     printf "%bSetting up less..%b\n" "${yellow}" "${nc}"
     create --file "${PWD}"/.config/less/lesshst
     ln --force --no-dereference --symbolic --verbose \
-        "${PWD}"/.config/less "${XDG_CONFIG_HOME}"
+        "${PWD}"/.config/less "${dotconfig}"
 
     # MIME types
     printf "%bSetting up MIME types..%b\n" "${yellow}" "${nc}"
-    create --directory "${XDG_DATA_HOME}"/applications
-    ln --force --no-dereference --symbolic --verbose                   \
-        "${PWD}"/.config/mimeapps.list "${XDG_DATA_HOME}"/applications
-    ln --force --no-dereference --symbolic --verbose        \
-        "${PWD}"/.config/mimeapps.list "${XDG_CONFIG_HOME}"
+    create --directory "${dotlocal}"/applications
+    ln --force --no-dereference --symbolic --verbose              \
+        "${PWD}"/.config/mimeapps.list "${dotlocal}"/applications
+    ln --force --no-dereference --symbolic --verbose  \
+        "${PWD}"/.config/mimeapps.list "${dotconfig}"
 
     # .LOCAL
 
@@ -259,23 +261,23 @@ function install-dotfiles-wsl() {
     # HOME
     printf "%bSetting up HOME..%b\n" "${yellow}" "${nc}"
     create --directory       \
-        "${XDG_CONFIG_HOME}" \
+        "${dotconfig}"       \
         "${HOME}"/.local/bin
 
     # XDG_CONFIG_HOME
     for folder in "${PWD}"/.config/*; do
 
-        [ -f "${folder}" ] && continue
+        [[ -f "${folder}" ]] && continue
         case "${folder##*/}" in
             bash | git )
                 printf "%bSetting up %s..%b\n"          \
                     "${yellow}" "${folder##*/}" "${nc}"
-                rm --force --recursive --verbose           \
-                    "${XDG_CONFIG_HOME:?}"/"${folder##*/}"
+                rm --force --recursive --verbose     \
+                    "${dotconfig:?}"/"${folder##*/}"
                 ln --force --no-dereference --symbolic --verbose \
-                    "${folder}" "${XDG_CONFIG_HOME}"
+                    "${folder}" "${dotconfig}"
 
-                if [ "${folder##*/}" == "bash" ]; then
+                if [[ "${folder##*/}" == "bash" ]]; then
                     rm --force --verbose        \
                         "${HOME}"/.profile      \
                         "${HOME}"/.bashrc       \
@@ -305,15 +307,15 @@ function install-dotfiles-wsl() {
         "${PWD}"/wsl/.config/wget/.wget-hsts \
         "${PWD}"/wsl/.config/wget/.wgetrc
 
-    ln --force --no-dereference --symbolic --verbose   \
-        "${PWD}"/wsl/.config/wget "${XDG_CONFIG_HOME}"
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/wsl/.config/wget "${dotconfig}"
 
     # less
     printf "%bSetting up \"less\"...%b\n" "${yellow}" "${nc}"
     rm --force --verbose "${HOME}"/.lesshst
     create --file "${PWD}"/wsl/.config/less/.lesshst
-    ln --force --no-dereference --symbolic --verbose   \
-        "${PWD}"/wsl/.config/less "${XDG_CONFIG_HOME}"
+    ln --force --no-dereference --symbolic --verbose \
+        "${PWD}"/wsl/.config/less "${dotconfig}"
 
     # .LOCAL
 
@@ -333,7 +335,7 @@ function install-dotfiles-windows() {
     # .CONFIG
     for folder in "${PWD}"/.config/*; do
 
-        [ -f "${folder}" ] && continue
+        [[ -f "${folder}" ]] && continue
         case "${folder##*/}" in
             bash | git | Code )
                 printf "%bSetting up %s..%b\n"          \

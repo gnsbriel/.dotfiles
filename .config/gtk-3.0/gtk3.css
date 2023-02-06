@@ -40,5 +40,5 @@ GtkWindow {
 
 /* Fix Nautilus desktop window background override */
 NautilusWindow {
-    background-color: transparent; 
+    background-color: transparent;
 }

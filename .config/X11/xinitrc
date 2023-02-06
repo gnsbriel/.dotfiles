@@ -1,61 +1,63 @@
 #!/bin/bash
 
-# {{{ xinit defaults
+# Defaults
+userresources="${HOME}"/.Xresources
+usermodmap="${HOME}"/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
 
-    userresources="${HOME}"/.Xresources
-    usermodmap="${HOME}"/.Xmodmap
-    sysresources=/etc/X11/xinit/.Xresources
-    sysmodmap=/etc/X11/xinit/.Xmodmap
+# merge in defaults and keymaps
+[[ -f "${sysresources}" ]]  && xrdb -merge "${sysresources}"
+[[ -f "${sysmodmap}" ]]     && xmodmap     "${sysmodmap}"
+[[ -f "${userresources}" ]] && xrdb -merge "${userresources}"
+[[ -f "${usermodmap}" ]]    && xmodmap     "${usermodmap}"
 
-    # merge in defaults and keymaps
-    if [ -f "${sysresources}" ]; then xrdb -merge "${sysresources}"; fi
-    if [ -f "${sysmodmap}" ]; then xmodmap "${sysmodmap}"; fi
-    if [ -f "${userresources}" ]; then xrdb -merge "${userresources}"; fi
-    if [ -f "${usermodmap}" ]; then xmodmap "${usermodmap}"; fi
+# start some nice programs
+if [[ -d /etc/X11/xinit/xinitrc.d ]] ; then
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+        # shellcheck disable=SC1090
+        [[ -x "${f}" ]] \
+            && source "${f}"
+    done
+    unset f
+fi
 
-    # start some nice programs
-    if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-        for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-            [ -x "${f}" ] && . "${f}"
-        done
-        unset f
+# Autostart
+
+dotconfig="${XDG_CONFIG_HOME:-${HOME}/.config}"
+
+# Query if program is already running before executing.
+function run() {
+    if ! pgrep -f "${1}" ;
+    then
+        "${@}" &
     fi
-# }}}
+}
 
-# {{{ Autostart
+xrandr --output DisplayPort-2 --mode 1920x1080 --rate 165
+#xrandr --output LVDS-1 --mode 1366x768 --rate 60
+xset s off -dpms
+nitrogen --set-zoom-fill --random ~/Pictures/Wallpapers/
+run picom --experimental-backends --config ~/.config/picom/picom.conf -b
+run dunst -conf/config "${dotconfig}"/dunst/dunstrc
+run flameshot
+run volumeicon
+run nm-applet
+run udiskie --tray
+run parcellite
+#run cbatticon
 
-    # Query if program is already running before executing.
-    function run() {
-        if ! pgrep -f "${1}" ;
-        then
-            "${@}" &
-        fi
-    }
+# Desktop Environment | Window Manager
 
-    xrandr --output DisplayPort-2 --mode 1920x1080 --rate 165
-    #xrandr --output LVDS-1 --mode 1366x768 --rate 60
-    xset s off -dpms
-    nitrogen --set-zoom-fill --random ~/Pictures/Wallpapers/
-    run picom --experimental-backends --config ~/.config/picom/picom.conf -b
-    run dunst -conf/config "${XDG_CONFIG_HOME}"/dunst/dunstrc
-    run flameshot
-    run volumeicon
-    run nm-applet
-    run udiskie --tray
-    run parcellite
-    #run cbatticon
-# }}}
+session="${1:-qtile}"
+case "${session}" in
+    qtile )
+        exec qtile start
+        ;;
+    * )
+        exec "${1}"
+        ;;
+esac
 
-# {{{ Desktop Environment | Window Manager
-
-    session="${1:-qtile}"
-
-    case "${session}" in
-        qtile )
-            exec qtile start
-            ;;
-        * )
-            exec "${1}"
-            ;;
-    esac
-# }}}
+unset -f run
+unset -v session

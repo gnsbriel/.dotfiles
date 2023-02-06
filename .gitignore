@@ -1,4 +1,6 @@
 !.gitignore
+.config/micro/buffers
+.config/micro/backups
 .config/wget/wgetrc
 .config/wget/wget-hsts
 .config/less/lesshst

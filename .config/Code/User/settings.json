@@ -38,6 +38,10 @@
     },
     "editor.suggest.preview": true,
     "editor.wordBasedSuggestions": false,
+    "editor.rulers": [
+        80,
+        120
+    ],
 
     "python.linting.enabled": true,
     "python.linting.pycodestyleEnabled": true,
@@ -257,11 +261,6 @@
     "code-runner.runInTerminal": true,
     "code-runner.enableAppInsights": false,
     "code-runner.saveFileBeforeRun": true,
-    "code-runner.temporaryFileName": "TempCodeRun",
-    "editor.acceptSuggestionOnEnter": "smart",
-    "editor.rulers": [
-        80,
-        120
-    ]
+    "code-runner.temporaryFileName": "TempCodeRun"
 
 }
