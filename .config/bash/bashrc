@@ -71,7 +71,7 @@ else
 fi
 
 # shellcheck disable=SC1091
-if uname -r | grep -q "arch" || uname -r | grep -q "wsl"; then
+if uname -r | grep -q "arch" || uname -r | grep -q "WSL"; then
     export NVM_DIR="${HOME}/.nvm"
     [[ -s "${NVM_DIR}/nvm.sh" ]] \
         && \. "${NVM_DIR}/nvm.sh"  # This loads nvm
