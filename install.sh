@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 # This script will install all dotfiles/configs in their correct folder
 # based on the chosen system.
 #
@@ -18,11 +19,16 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # Options
-set -o errexit   # Used to exit upon error, avoiding cascading errors
+
 set -o nounset   # Exposes unset variables
 set -o pipefail  # Unveils hidden failures
 set +o xtrace    # Trace what gets executed (Debug)
+set -o errexit   # Used to exit upon error, avoiding cascading errors
+set -o errtrace  # Inherit trap on ERR to shell functions, cmd substitutions
+                 # and commands executed in a sub-shell environment.
+trap err ERR     # Trap ERR and call err
 trap ctrl_c INT  # Trap CTRL + C and call ctrl_c
+
 
 # Colors
 readonly cyan='\033[0;36m'
@@ -65,6 +71,14 @@ function helpmsg() {
 function ctrl_c() {
     # echo "** Trapped CTRL-C"
     exit 0
+}
+
+function err() {
+    echo "${?}"
+    printf "%bERROR: [%s] An exception ocurred near line %s !%b\n" \
+        "${red}" "$(date +'%d-%m-%Y %H:%M:%S')" \
+        "${BASH_LINENO[0]}" "${nc}" >&2
+        exit 2
 }
 
 function countdown() {
@@ -409,34 +423,26 @@ function install-dotfiles-windows() {
 # Main Program
 function main() {
 
-    while true; do
-        case "${1}" in
-            -h | --help )
-                helpmsg
-                exit 0
+    while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do
+        case $1 in
+            -v | --version )
+                echo "${version:-}"
+                exit
                 ;;
-            -a | --arch )
-                countdown "You chose to install .dotfiles for arch.."
-                install-dotfiles-arch
-                exit 0
+            -s | --string )
+                shift; string=$1
                 ;;
-            -wsl | --wsl )
-                countdown "You chose to install .dotfiles for wsl.."
-                install-dotfiles-wsl
-                exit 0
-                ;;
-            -w | --windows )
-                countdown "You chose to install .dotfiles for windows.."
-                install-dotfiles-windows
-                exit 0
-                ;;
-            * )
-                helpmsg
-                exit 0
+            -f | --flag )
+                flag=1
                 ;;
         esac
+        shift
     done
+    if [[ "$1" == '--' ]]; then
+        shift
+    fi
 }
 
 cd "${script_path}"  # cd to executable path
+
 main "${@}"

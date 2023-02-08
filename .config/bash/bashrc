@@ -18,9 +18,7 @@ HISTFILESIZE=10000  # Maximum line size for ".bash_history"
 HISTFILE="${dotconfig}"/bash/bash_history  # ".bash_history" file location
 shopt -s histappend  # Append commands to ".bash_history"
 shopt -s checkwinsize  # Line wrap on window resize
-
-# Tweaks
-shopt -s autocd
+shopt -s autocd  # Auto cd if command is a directory
 
 # This updates .bash_history after every command
 PROMPT_COMMAND="${PROMPT_COMMAND:+${PROMPT_COMMAND}$'\n'} \
