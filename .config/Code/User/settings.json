@@ -29,7 +29,7 @@
     "editor.renderLineHighlight": "gutter",
     "editor.scrollbar.verticalScrollbarSize": 12,
     "editor.smoothScrolling": true,
-    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorSmoothCaretAnimation": "on",
     "editor.tabCompletion": "on",
     "editor.cursorBlinking": "phase",
     "editor.quickSuggestions": {
@@ -39,7 +39,7 @@
     },
     "editor.suggest.preview": true,
     "editor.wordBasedSuggestions": false,
-    "editor.rulers": [80, 120],
+    "editor.rulers": [79, 120],
 
     "python.linting.enabled": true,
     "python.linting.pycodestyleEnabled": true,
