@@ -307,6 +307,7 @@ function do_rm() {
         || error "'rm ${*}' failed near line ${BASH_LINENO[0]}!"
 }
 
+# shellcheck disable=SC2015
 function do_sed() {
     command sed "${@}"                                            \
         && debug "(${BASH_LINENO[0]}) 'sed ${*}'"                 \
