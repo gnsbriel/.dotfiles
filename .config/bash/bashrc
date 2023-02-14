@@ -8,14 +8,11 @@
 [[ -x /usr/bin/lesspipe ]] \
     && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Variable Definitions
-dotconfig="${XDG_CONFIG_HOME:-${HOME}/.config}"
-
 # History Customization
 HISTCONTROL=ignoredups  # Ignore duplicates for ".bash_history"
 HISTSIZE=10000  # Maximum line size for ".bash_history"
 HISTFILESIZE=10000  # Maximum line size for ".bash_history"
-HISTFILE="${dotconfig}"/bash/bash_history  # ".bash_history" file location
+HISTFILE="${XDG_CONFIG_HOME}"/bash/bash_history  # ".bash_history" file location
 shopt -s histappend  # Append commands to ".bash_history"
 shopt -s checkwinsize  # Line wrap on window resize
 shopt -s autocd  # Auto cd if command is a directory
@@ -45,9 +42,9 @@ fi
 # Aliases
 # shellcheck disable=SC1091
 if [[ ! "${EUID:-$(id -u)}" -eq 0 ]]; then
-    source "${dotconfig}"/bash/bash_aliases
-    source "${dotconfig}"/git/git-prompt.sh
-    source "${dotconfig}"/git/git-completion.bash
+    source "${XDG_CONFIG_HOME}"/bash/bash_aliases
+    source "${XDG_CONFIG_HOME}"/git/git-prompt.sh
+    source "${XDG_CONFIG_HOME}"/git/git-completion.bash
 fi
 
 # set variable identifying the chroot you work in (used in the prompt below)
@@ -68,20 +65,19 @@ else
     PS1='$(__git_ps1 "שׂ %s")\n${debian_chroot:+($debian_chroot)}>_ '
 fi
 
+
+export NVM_DIR="${HOME}/.nvm"
 # shellcheck disable=SC1091
-if uname -r | grep -q "arch" || uname -r | grep -q "WSL"; then
-    export NVM_DIR="${HOME}/.nvm"
-    [[ -s "${NVM_DIR}/nvm.sh" ]] \
-        && \. "${NVM_DIR}/nvm.sh"  # This loads nvm
-    [[ -s "${NVM_DIR}/bash_completion" ]] \
-        && \. "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
+[[ -s "${NVM_DIR}/nvm.sh" ]] && \. "${NVM_DIR}/nvm.sh"  # This loads nvm
+# shellcheck disable=SC1091
+[[ -s "${NVM_DIR}/bash_completion" ]] \
+    && \. "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
 
-    pfetch
+pfetch
 
-    if uname -r | grep -q "arch" && ! groups "${USER}" | grep -q i2c; then
-        printf "Consider adding \"%s\" to \"i2c\" group.\n" "${USER}"
-        printf "    $ sudo usermod --append --groups i2c %s\n" "${USER}"
-    fi
+if uname -r | grep -q "arch" && ! groups "${USER}" | grep -q i2c; then
+    printf "Consider adding \"%s\" to \"i2c\" group.\n" "${USER}"
+    printf "    $ sudo usermod --append --groups i2c %s\n" "${USER}"
 fi
 
-unset dotconfig color_prompt force_color_prompt
+unset color_prompt force_color_prompt

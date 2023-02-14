@@ -1,46 +1,34 @@
 # shellcheck shell=bash
 
-# Directories
-dotconfig="${XDG_CONFIG_HOME:-${HOME}/.config}"
+# Section: Path
 
-# Path
 export PATH="${PATH}":"${HOME}"/.local/bin
 
-# User Environment Variables
-export GTK2_RC_FILES="${dotconfig}"/gtk-2.0/gtkrc-2.0
-export LESSHISTFILE="${dotconfig}"/less/lesshst
-export WGETRC="${dotconfig}"/wget/wgetrc
+# Section: User Environment Variables
 
-if uname -r | grep -q "arch" ; then
-    export QT_STYLE_OVERRIDE=kvantum
-    export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-fi
+export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
+export LESSHISTFILE="${XDG_CONFIG_HOME}"/less/lesshst
+export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
 
-if [[ $(uname -r | grep -c "arch") == 0 \
-    && $(uname -r | grep -c "WSL") == 0 ]]; then
-        HIST_FILE="${dotconfig}"/bash/bash_history
-        [[ ! -f "${HIST_FILE}" ]] && touch "${HIST_FILE}"
-        export HISTFILE="${HIST_FILE}"
-fi
+#! arch linux only
+export QT_STYLE_OVERRIDE=kvantum
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
-# Bash
+#! Windows only
+# HIST_FILE="${XDG_CONFIG_HOME}"/bash/bash_history
+# [[ ! -f "${HIST_FILE}" ]] && touch "${HIST_FILE}"
+# export HISTFILE="${HIST_FILE}"
+
+# Section: Bash
+
 # shellcheck disable=SC1091
-source "${dotconfig}"/bash/bashrc
+source "${XDG_CONFIG_HOME}"/bash/bashrc
 
-# Xinit
-if uname -r | grep -q "arch" ; then
+# Section: Xinit
 
-    DE="qtile"  # Desktop Environment
-
-    if [[ "$(tty)" = "/dev/tty1" ]]; then
-        pgrep "${DE}" || startx "${dotconfig}"/X11/xinitrc "${DE}"
-    fi
-
-    unset DE
+DE="qtile"  # Desktop Environment
+if [[ "$(tty)" = "/dev/tty1" ]]; then
+    pgrep "${DE}" || startx "${XDG_CONFIG_HOME}"/X11/xinitrc "${DE}"
 fi
 
-unset dotconfig
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+unset -v DE
