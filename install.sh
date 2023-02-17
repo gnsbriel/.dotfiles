@@ -110,17 +110,17 @@ function script_init() {
 
     origin_cwd="${PWD}"
 
-    script_head=$(grep --no-messages --line-number "^# END_OF_HEADER" "${0}" | head -1 | cut --fields=1 --delimiter=:)
-    script_name="$(basename "${0}")"
-    script_dir="$(cd "$(dirname "${0}")" && \pwd )"
+    script_head=$(\grep --no-messages --line-number "^# END_OF_HEADER" "${0}" | \head -1 | cut --fields=1 --delimiter=:)
+    script_name="$(\basename "${0}")"
+    script_dir="$(\cd "$(\dirname "${0}")" && \pwd )"
     script_path="${script_dir}/${script_name}"
     script_params="${*}"
 
-    script_log="${script_name}-$(date +"%Y-%m-%d %H:%M:%S").log" # default is '/dev/null'
+    script_log="${script_dir}/.log" # default is '/dev/null'
     script_loglevel=3  # default is 3
 
-    script_tempdir=$(mktemp --directory -t tmp.XXXXXXXXXX)
-    script_tempfile=$(mktemp -t tmp.XXXXXXXXXX)
+    script_tempdir=$(\mktemp --directory -t tmp.XXXXXXXXXX)
+    script_tempfile=$(\mktemp -t tmp.XXXXXXXXXX)
 
     #IFS=$'\n\t'
 }
@@ -141,6 +141,7 @@ function err_trapper() {
 
     critical "An exception ocurred near line ${BASH_LINENO[0]}"
     inf "Script Parameters: '${script_params}'"
+
     exit "${exitcode}"
 }
 
@@ -150,13 +151,8 @@ function exit_trapper {
 
     trap - ERR # Disable the exit trap handler to prevent recursion
 
-    do_cd "${origin_cwd}" || warning "Couldn't cd back to '${origin_cwd}'"
-
-    do_rm --recursive --force "${script_tempdir}"        \
-        || warning "Couldn't remove '${script_tempdir}'"
-    do_rm --recursive --force "${script_tempfile}"        \
-        || warning "Couldn't remove '${script_tempfile}'"
-
+    do_cd "${origin_cwd}"
+    do_rm --recursive --force "${script_tempdir}" "${script_tempfile}"
     do_unset
 
     exit "${exitcode}"
@@ -182,8 +178,8 @@ function do_help() {
     if [[ "${filter_type}" == "ful" ]]; then filter="^#[%/)+]"; fi
 
     \head -"${script_head:-99}" "${0}"                        \
-        | grep --regexp="${filter:-y^#-}"                    \
-        | sed --expression="s/${filter:-^#-}//g"              \
+        | \grep --regexp="${filter:-y^#-}"                    \
+        | \sed --expression="s/${filter:-^#-}//g"             \
             --expression="s/\${script_name}/${script_name}/g"
 }
 
@@ -231,7 +227,7 @@ function log() {
     logcolors=( "$(color r)" "$(color g)" "$(color y)" "$(color g)" "$(color m)" "$(color b)" )
     loglevel="${loglevels[${1}]}"
     logcolor="${logcolors[${1}]}"
-    logdate=$(date +"%Y/%m/%d %H:%M:%S")
+    logdate=$(\date +"%Y/%m/%d %H:%M:%S")
 
     termlogformat="[${logdate}] ${logcolor}[${loglevel}]$(color nc) ${2}"
     filelogformat="[${logdate}] [${loglevel}] > ${FUNCNAME[3]} | ${2}"
@@ -240,7 +236,7 @@ function log() {
         do_printf "${termlogformat}"
     fi
 
-    do_echo "${filelogformat}" | fold -w79 -s | sed '2~1s/^/  /' >> "${script_log:-/dev/null}"
+    do_echo "${filelogformat}" | \fold --width=79 --spaces | \sed '2~1s/^/  /' >> "${script_log:-/dev/null}"
 }
 
 # shellcheck disable=SC2015
@@ -465,7 +461,7 @@ function create() {
             done
             ;;
         * )
-            error "Usage: create [OPTION..] [PATH..]"
+            error "(${BASH_LINENO[0]}) Usage: create [OPTION..] [PATH..]"
             error ""
             error "Options:"
             error "    -f, --file"
@@ -502,6 +498,8 @@ function arch() {
                     "${folder}" "${dotconfig}"
 
                 if [[ "${folder##*/}" == "qtile" ]]; then
+                    create --directory "${dotlocal}"/qtile
+                    create --file "${script_dir}"/.config/qtile/qtile.log
                     do_rm --force "${dotlocal}"/qtile/qtile.log
                     do_ln --force --no-dereference --symbolic \
                         "${dotconfig}"/qtile/qtile.log        \
@@ -767,7 +765,7 @@ function do_unset() {
         do_printf_n color check_binary validade_str do_countdown create main \
         arch wsl windows
 
-    unset -f do_unset # this ensures the 'do_unset' function is the last one.
+    unset -f do_unset # Ensures this function is the last one to unset.
 }
 
 # Section: Main Program
