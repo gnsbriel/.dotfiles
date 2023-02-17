@@ -395,6 +395,12 @@ def CheckUpdates(c):
                             color=c,
                             a="{updates}"
                         ),
+        no_update_string="""<span font='Hack NF Bold 9' underline='double'
+                        underline_color='{color}'
+                        >No Updates</span>""".format(
+                            color=c,
+                        ),
+        colour_no_updates=c,
         execute=terminal + " --hold --command sudo pacman -Syyu"
     )
     return checkupdates

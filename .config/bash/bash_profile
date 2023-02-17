@@ -1,34 +1,30 @@
 # shellcheck shell=bash
 
-# Section: Path
+# Variable Definitions
+dotconfig="${XDG_CONFIG_HOME:-${HOME}/.config}"
+DE="qtile"  # Desktop Environment
 
+# PATH
 export PATH="${PATH}":"${HOME}"/.local/bin
 
-# Section: User Environment Variables
+# ENVIRONMENT VARIABLES
+export GTK2_RC_FILES="${dotconfig}"/gtk-2.0/gtkrc-2.0
+export LESSHISTFILE="${dotconfig}"/less/lesshst
+export WGETRC="${dotconfig}"/wget/wgetrc
+export QT_STYLE_OVERRIDE=kvantum                   #! Arch linux specific
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority    #! Arch linux specific
+# HIST_FILE="${HOME}"/.config/bash/bash_history      #! Windows specific
+# [[ ! -f "${HIST_FILE}" ]] && touch "${HIST_FILE}"  #! Windows specific
+# export HISTFILE="${HIST_FILE}"                     #! Windows specific
 
-export GTK2_RC_FILES="${XDG_CONFIG_HOME}"/gtk-2.0/gtkrc-2.0
-export LESSHISTFILE="${XDG_CONFIG_HOME}"/less/lesshst
-export WGETRC="${XDG_CONFIG_HOME}"/wget/wgetrc
-
-#! arch linux only
-export QT_STYLE_OVERRIDE=kvantum
-export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
-
-#! Windows only
-# HIST_FILE="${XDG_CONFIG_HOME}"/bash/bash_history
-# [[ ! -f "${HIST_FILE}" ]] && touch "${HIST_FILE}"
-# export HISTFILE="${HIST_FILE}"
-
-# Section: Bash
-
+# BASHRC
 # shellcheck disable=SC1091
-source "${XDG_CONFIG_HOME}"/bash/bashrc
+source "${dotconfig}"/bash/bashrc
 
-# Section: Xinit
-
-DE="qtile"  # Desktop Environment
+# XINIT
 if [[ "$(tty)" = "/dev/tty1" ]]; then
-    pgrep "${DE}" || startx "${XDG_CONFIG_HOME}"/X11/xinitrc "${DE}"
+    pgrep "${DE}" || startx "${dotconfig}"/X11/xinitrc "${DE}"
 fi
 
-unset -v DE
+unset -v DE dotconfig
+#unset -v HIST_FILE  #! WINDOWS ONLY
