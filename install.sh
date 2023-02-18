@@ -813,7 +813,7 @@ function main() {
             -s | --system )
                 shift
                 if [[ ! "${1:-}" =~ ^(arch|wsl|windows)$ ]]; then
-                    warning "Operational Systems are: [arch] [wsl] [windows]"
+                    warning "Operational Systems are: ['arch'] ['wsl'] ['windows']"
                     warning "Try './${script_name} --help' for more information."
                     exit 1
                 fi
