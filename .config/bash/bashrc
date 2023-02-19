@@ -77,4 +77,9 @@ if uname -r | grep -q "arch" && ! groups "${USER}" | grep -q i2c; then
     printf "    $ sudo usermod --append --groups i2c %s\n" "${USER}"
 fi
 
+if uname -r | grep -q "arch" && ! groups "${USER}" | grep -q libvirt; then
+    printf "Consider adding \"%s\" to \"libvirt\" group.\n" "${USER}"
+    printf "    $ sudo usermod --append --groups libvirt %s\n" "${USER}"
+fi
+
 unset color_prompt force_color_prompt
